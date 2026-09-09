@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/features/resources/routes_manager.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
 
 void main() {
   runApp(const MyApp());

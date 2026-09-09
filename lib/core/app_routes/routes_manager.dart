@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/features/resources/barrel.dart';
+import 'package:whisper/barrel.dart';
 
 class RoutesManager {
   static const String splashScreen = "/splashScreen";
