@@ -9,35 +9,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final stopwatch = Stopwatch();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashBloc(),
+      create: (context) => SplashBloc()..add(IsLoggedIn()),
       child: Scaffold(
-        appBar: AppBar(title: Text("SplashScreen")),
         body: BlocListener<SplashBloc, SplashState>(
+          listenWhen: (previous, current) => previous != current,
           listener: (context, state) {
             if (state is SplashNavigater) {
               Navigator.pushReplacementNamed(
                 context,
-                RoutesManager.loginScreen,
+                RoutesManager.onBoardingScreen,
               );
-              stopwatch.stop();
-              print(stopwatch.elapsed.toString());
             }
           },
           child: Center(
-            child: BlocBuilder<SplashBloc, SplashState>(
-              builder: (context, state) {
-                return ElevatedButton(
-                  onPressed: () {
-                    stopwatch.start();
-                    context.read<SplashBloc>().add(IsLoggedIn());
-                  },
-                  child: Text("Next"),
-                );
-              },
+            child: Container(
+              decoration: BoxDecoration(color: ColorManager.primaryColor),
+              height: double.infinity,
+              width: double.infinity,
+              child: Image.asset("lib/core/app_images/ChatAppLogo2.png"),
             ),
           ),
         ),

@@ -1,5 +1,5 @@
 export 'package:whisper/features/spash/presentation/splash_screen.dart';
-export 'package:whisper/features/presentation/onboarding_screen.dart';
+export 'package:whisper/features/onboarding/presentation/onboarding_screen.dart';
 export 'package:whisper/features/presentation/chat_screen.dart';
 export 'package:whisper/features/presentation/profile_screen.dart';
 export 'package:whisper/features/presentation/setting_screen.dart';
@@ -9,6 +9,11 @@ export 'package:whisper/features/presentation/login_screen.dart';
 export 'package:whisper/core/app_routes/routes_manager.dart';
 
 export 'package:whisper/features/spash/presentation/bloc/splash_bloc.dart';
+
+export 'package:whisper/core/app_colors/color_manager.dart';
+
+export 'package:whisper/features/onboarding/domain/model/onbarding_model.dart';
+export 'package:whisper/features/onboarding/domain/repository/repository.dart';
 
 // Packages
 export 'package:bloc/bloc.dart';
