@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/barrel.dart';
-import 'package:whisper/core/constants/app_size.dart';
-import 'package:whisper/features/onboarding/data/repository/repository_impl.dart';
-import 'package:whisper/features/onboarding/presentation/bloc/onboarding_bloc.dart';
-import 'package:whisper/features/onboarding/presentation/constant/onboarding_constant.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -13,53 +9,68 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     print('test2');
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) =>
-            OnboardingBloc(RepositoryImpl())..add(GetOnboardingData()),
-        child: SafeArea(
+    return BlocProvider(
+      create: (context) =>
+          OnboardingBloc(RepositoryImpl())..add(GetOnboardingData()),
+      child: Scaffold(
+        body: SafeArea(
           child: BlocBuilder<OnboardingBloc, OnboardingState>(
             builder: (context, state) {
+              print('test1');
               return Column(
                 children: [
                   Expanded(
-                    child: PageView.builder(
-                      itemCount: state.slider.length,
-                      onPageChanged: (value) {
-                        context.read<OnboardingBloc>().add(
-                          OnPageChangeEvent(index: value),
+                    child: BlocListener<OnboardingBloc, OnboardingState>(
+                      listenWhen: (previous, current) => previous != current,
+                      listener: (context, state) {
+                        _pageController.animateToPage(
+                          state.index,
+                          duration: Duration(microseconds: 300),
+                          curve: Curves.easeInOut,
                         );
                       },
+                      child: PageView.builder(
+                        itemCount: state.slider.length,
+                        onPageChanged: (value) {
+                          context.read<OnboardingBloc>().add(
+                            OnPageChangeEvent(index: value),
+                          );
+                        },
+                        controller: _pageController,
 
-                      itemBuilder: (context, index) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Image.asset(
-                            state.slider[index].image,
-                            height: AppSize.sizeDouble200,
-                          ),
-                          SizedBox(height: AppSize.sizeDouble40),
-                          Text(
-                            state.slider[index].heading,
-                            style: TextStyle(
-                              fontSize: AppSize.sizeDouble20,
-                              fontWeight: FontWeight.bold,
+                        itemBuilder: (context, index) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Image.asset(
+                              state.slider[index].image,
+                              height: AppSize.sizeDouble200,
                             ),
-                          ),
-                          SizedBox(height: AppSize.sizeDouble12),
-                          Text(state.slider[index].subText),
-                          SizedBox(height: AppSize.sizeDouble200),
-                        ],
+                            SizedBox(height: AppSize.sizeDouble40),
+                            Text(
+                              state.slider[index].heading,
+                              style: TextStyle(
+                                fontSize: AppSize.sizeDouble20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: AppSize.sizeDouble12),
+                            Text(state.slider[index].subText),
+                            SizedBox(height: AppSize.sizeDouble200),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(AppPadding.padding14),
                     child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
                       height: AppSize.sizeDouble80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
@@ -67,27 +78,74 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(AppPadding.padding12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              child: Image.asset(OnboardingImages.letArrow),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                for (int i = 0; i < state.slider.length; i++)
-                                  if (i == state.index)
-                                    Image.asset(OnboardingImages.whiteCircle)
-                                  else
-                                    Image.asset(OnboardingImages.blackCircle),
-                              ],
-                            ),
-                            GestureDetector(
-                              child: Image.asset(OnboardingImages.rightArrow),
-                            ),
-                          ],
-                        ),
+                        child: state.index < state.slider.length - 1
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      print(state.index);
+                                      context.read<OnboardingBloc>().add(
+                                        GoToPreviousPage(),
+                                      );
+                                    },
+                                    child: state.index == 0
+                                        ? SizedBox.shrink()
+                                        : Image.asset(
+                                            OnboardingImages.letArrow,
+                                          ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      for (
+                                        int i = 0;
+                                        i < state.slider.length;
+                                        i++
+                                      )
+                                        if (i == state.index)
+                                          Image.asset(
+                                            OnboardingImages.rightArrow,
+                                          )
+                                        else
+                                          Image.asset(
+                                            OnboardingImages.letArrow,
+                                          ),
+                                    ],
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      print(state.index);
+                                      context.read<OnboardingBloc>().add(
+                                        GoToNextPage(),
+                                      );
+                                    },
+                                    child: state.index < state.slider.length - 1
+                                        ? Image.asset(
+                                            OnboardingImages.rightArrow,
+                                          )
+                                        : SizedBox.shrink(),
+                                  ),
+                                ],
+                              )
+                            : ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    RoutesManager.loginScreen,
+                                  );
+                                },
+                                child: Text(
+                                  "Continue",
+                                  style: TextStyle(
+                                    fontSize: AppSize.sizeDouble20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                       ),
                     ),
                   ),

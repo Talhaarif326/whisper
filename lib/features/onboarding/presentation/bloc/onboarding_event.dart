@@ -18,3 +18,7 @@ class OnPageChangeEvent extends OnboardingEvent {
   @override
   List<Object> get props => [index];
 }
+
+class GoToNextPage extends OnboardingEvent {}
+
+class GoToPreviousPage extends OnboardingEvent {}

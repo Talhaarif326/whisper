@@ -11,6 +11,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc(this.repositoryImpl) : super(OnboardingState()) {
     on<GetOnboardingData>(_sliderEvent);
     on<OnPageChangeEvent>(_onPageChangeEvent);
+    on<GoToNextPage>(_goToNextPage);
+    on<GoToPreviousPage>(_goToPreviousPage);
   }
 
   void _sliderEvent(GetOnboardingData event, Emitter<OnboardingState> emit) {
@@ -22,5 +24,20 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     Emitter<OnboardingState> emit,
   ) {
     emit(state.copyWith(index: event.index));
+  }
+
+  void _goToNextPage(GoToNextPage event, Emitter<OnboardingState> emit) {
+    if (state.index < state.slider.length) {
+      emit(state.copyWith(index: state.index + 1));
+    }
+  }
+
+  void _goToPreviousPage(
+    GoToPreviousPage event,
+    Emitter<OnboardingState> emit,
+  ) {
+    if (state.index < state.slider.length) {
+      emit(state.copyWith(index: state.index - 1));
+    }
   }
 }

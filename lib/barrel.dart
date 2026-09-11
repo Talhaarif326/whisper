@@ -15,6 +15,11 @@ export 'package:whisper/core/app_colors/color_manager.dart';
 export 'package:whisper/features/onboarding/domain/model/onbarding_model.dart';
 export 'package:whisper/features/onboarding/domain/repository/repository.dart';
 
+export 'package:whisper/core/constants/app_size.dart';
+export 'package:whisper/features/onboarding/data/repository/repository_impl.dart';
+export 'package:whisper/features/onboarding/presentation/bloc/onboarding_bloc.dart';
+export 'package:whisper/features/onboarding/presentation/constant/onboarding_constant.dart';
+
 // Packages
 export 'package:bloc/bloc.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
