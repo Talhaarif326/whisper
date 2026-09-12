@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/barrel.dart';
+import 'package:whisper/core/widgets/widget.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -12,7 +13,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    print('test2');
     return BlocProvider(
       create: (context) =>
           OnboardingBloc(RepositoryImpl())..add(GetOnboardingData()),
@@ -20,7 +20,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: SafeArea(
           child: BlocBuilder<OnboardingBloc, OnboardingState>(
             builder: (context, state) {
-              print('test1');
               return Column(
                 children: [
                   Expanded(
@@ -85,7 +84,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      print(state.index);
                                       context.read<OnboardingBloc>().add(
                                         GoToPreviousPage(),
                                       );
@@ -130,21 +128,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ),
                                 ],
                               )
-                            : ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    RoutesManager.loginScreen,
-                                  );
-                                },
-                                child: Text(
-                                  "Continue",
-                                  style: TextStyle(
-                                    fontSize: AppSize.sizeDouble20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
+                            : ContinueButton(
+                                onPressed: () => Navigator.pushReplacementNamed(
+                                  context,
+                                  RoutesManager.loginScreen,
                                 ),
+                                name: "Continue",
                               ),
                       ),
                     ),

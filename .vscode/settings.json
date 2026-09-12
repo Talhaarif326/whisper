@@ -1,0 +1,7 @@
+{
+    "chat.disableAIFeatures": false,
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "notebook.defaultFormatter": "Dart-Code.dart-code",
+    "github.copilot.chat.rateLimitAutoSwitchToAuto": true,
+    "github.copilot.completions.chat.enabled": false
+}

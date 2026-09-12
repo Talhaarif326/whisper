@@ -37,10 +37,14 @@ dependencies:
   flutter_bloc: ^9.1.1
   bloc: ^9.2.1
   equatable: ^2.1.0
-
+  http: ^1.6.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^2.4.1
+  build_runner: ^2.4.15
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -48,6 +52,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  json_serializable: ^6.9.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
