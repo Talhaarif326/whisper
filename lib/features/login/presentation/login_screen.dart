@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
 
 import 'package:whisper/core/widgets/widget.dart';
 import 'package:whisper/features/login/data/repository_impl.dart';
@@ -120,7 +121,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Spacer(),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutesManager.signUpScreen,
+                          );
+                        },
                         child: Text("Create Account"),
                       ),
                     ],
