@@ -6,6 +6,5 @@ class LoginState with _$LoginState {
     @Default('') String email,
     @Default('') String password,
     @Default("") String errorMessage,
-    @Default(0) int statusCode,
   }) = _LoginState;
 }

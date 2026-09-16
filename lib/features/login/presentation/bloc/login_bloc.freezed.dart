@@ -831,7 +831,6 @@ abstract class _LoginState implements LoginState {
     final String email,
     final String password,
     final String errorMessage,
-    final int statusCode,
   }) = _$LoginStateImpl;
 
   @override

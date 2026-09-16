@@ -21,8 +21,9 @@ SignUpResponseModel _$SignUpResponseModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SignUpResponseModel {
-  String get statusCode => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
 
   /// Serializes this SignUpResponseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $SignUpResponseModelCopyWith<$Res> {
     $Res Function(SignUpResponseModel) then,
   ) = _$SignUpResponseModelCopyWithImpl<$Res, SignUpResponseModel>;
   @useResult
-  $Res call({String statusCode, String message});
+  $Res call({String email, String message, String uid});
 }
 
 /// @nodoc
@@ -58,16 +59,24 @@ class _$SignUpResponseModelCopyWithImpl<$Res, $Val extends SignUpResponseModel>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? statusCode = null, Object? message = null}) {
+  $Res call({
+    Object? email = null,
+    Object? message = null,
+    Object? uid = null,
+  }) {
     return _then(
       _value.copyWith(
-            statusCode: null == statusCode
-                ? _value.statusCode
-                : statusCode // ignore: cast_nullable_to_non_nullable
+            email: null == email
+                ? _value.email
+                : email // ignore: cast_nullable_to_non_nullable
                       as String,
             message: null == message
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
+                      as String,
+            uid: null == uid
+                ? _value.uid
+                : uid // ignore: cast_nullable_to_non_nullable
                       as String,
           )
           as $Val,
@@ -84,7 +93,7 @@ abstract class _$$SignUpResponseModelImplCopyWith<$Res>
   ) = __$$SignUpResponseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String statusCode, String message});
+  $Res call({String email, String message, String uid});
 }
 
 /// @nodoc
@@ -100,16 +109,24 @@ class __$$SignUpResponseModelImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? statusCode = null, Object? message = null}) {
+  $Res call({
+    Object? email = null,
+    Object? message = null,
+    Object? uid = null,
+  }) {
     return _then(
       _$SignUpResponseModelImpl(
-        statusCode: null == statusCode
-            ? _value.statusCode
-            : statusCode // ignore: cast_nullable_to_non_nullable
+        email: null == email
+            ? _value.email
+            : email // ignore: cast_nullable_to_non_nullable
                   as String,
         message: null == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
+                  as String,
+        uid: null == uid
+            ? _value.uid
+            : uid // ignore: cast_nullable_to_non_nullable
                   as String,
       ),
     );
@@ -120,21 +137,24 @@ class __$$SignUpResponseModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SignUpResponseModelImpl implements _SignUpResponseModel {
   const _$SignUpResponseModelImpl({
-    required this.statusCode,
+    required this.email,
     required this.message,
+    required this.uid,
   });
 
   factory _$SignUpResponseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignUpResponseModelImplFromJson(json);
 
   @override
-  final String statusCode;
+  final String email;
   @override
   final String message;
+  @override
+  final String uid;
 
   @override
   String toString() {
-    return 'SignUpResponseModel(statusCode: $statusCode, message: $message)';
+    return 'SignUpResponseModel(email: $email, message: $message, uid: $uid)';
   }
 
   @override
@@ -142,14 +162,14 @@ class _$SignUpResponseModelImpl implements _SignUpResponseModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignUpResponseModelImpl &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.uid, uid) || other.uid == uid));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, statusCode, message);
+  int get hashCode => Object.hash(runtimeType, email, message, uid);
 
   /// Create a copy of SignUpResponseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -170,17 +190,20 @@ class _$SignUpResponseModelImpl implements _SignUpResponseModel {
 
 abstract class _SignUpResponseModel implements SignUpResponseModel {
   const factory _SignUpResponseModel({
-    required final String statusCode,
+    required final String email,
     required final String message,
+    required final String uid,
   }) = _$SignUpResponseModelImpl;
 
   factory _SignUpResponseModel.fromJson(Map<String, dynamic> json) =
       _$SignUpResponseModelImpl.fromJson;
 
   @override
-  String get statusCode;
+  String get email;
   @override
   String get message;
+  @override
+  String get uid;
 
   /// Create a copy of SignUpResponseModel
   /// with the given fields replaced by the non-null parameter values.

@@ -22,16 +22,17 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) => LoginBloc(loginRepository: RepositoryImpl()),
       child: BlocListener<LoginBloc, LoginState>(
         listenWhen: (previous, current) =>
-            previous.statusCode != current.statusCode,
+            previous.errorMessage != current.errorMessage,
         listener: (context, state) {
-          if (state.statusCode == 200) {
+          if (state.errorMessage.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
+                content: Text("Login successful"),
                 backgroundColor: Colors.green,
               ),
             );
-          } else if (state.statusCode != 200) {
+            Navigator.pushReplacementNamed(context, RoutesManager.chatScreen);
+          } else if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(state.errorMessage),
@@ -58,6 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context, state) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
+
+                        autocorrect: false,
                         onChanged: (value) {
                           context.read<LoginBloc>().add(
                             LoginEvent.onEmailChanged(value),
@@ -88,6 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return TextFormField(
+                        obscureText: true,
+                        autocorrect: false,
                         onChanged: (value) {
                           context.read<LoginBloc>().add(
                             LoginEvent.onPasswordChanged(value),
@@ -116,7 +121,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutesManager.forgotScreen,
+                          );
+                        },
                         child: Text("Forgot password"),
                       ),
                       Spacer(),

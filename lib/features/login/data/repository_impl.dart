@@ -1,31 +1,24 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whisper/barrel.dart';
+import 'package:whisper/core/failures/failure.dart';
 
 class RepositoryImpl implements LoginRepository {
   @override
-  Future<LoginModel> login(String email, String password) async {
-    final String baseUrl =
-        "https://3d5cfa3c-2e04-4ae9-978c-bb2dfdbe7711.mock.pstmn.io/Customers/Login";
-
-    Uri url = Uri.parse(baseUrl);
-    final response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "x-mock-match-request-body": "true",
-      },
-      body: jsonEncode({"email": email, "password": password}),
-    );
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return LoginModel.fromJson(data);
-    } else {
-      // Handle login failure
-      throw Exception('Login failed');
+  Future<Either<Failure, LoginModel>> login(
+    String email,
+    String password,
+  ) async {
+    try {
+      final credintals = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return Right(LoginModel(uid: credintals.user!.uid));
+    } on FirebaseAuthException catch (e) {
+      return Left(Failure(e.code));
+    } catch (e) {
+      return Left(Failure(e.toString()));
     }
   }
 }

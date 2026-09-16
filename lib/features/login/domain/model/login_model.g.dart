@@ -7,15 +7,7 @@ part of 'login_model.dart';
 // **************************************************************************
 
 _$LoginModelImpl _$$LoginModelImplFromJson(Map<String, dynamic> json) =>
-    _$LoginModelImpl(
-      message: json['message'] as String,
-      statusCode: (json['statusCode'] as num).toInt(),
-      status: json['status'] as String,
-    );
+    _$LoginModelImpl(uid: json['uid'] as String);
 
 Map<String, dynamic> _$$LoginModelImplToJson(_$LoginModelImpl instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'statusCode': instance.statusCode,
-      'status': instance.status,
-    };
+    <String, dynamic>{'uid': instance.uid};

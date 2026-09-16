@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:whisper/core/widgets/widget.dart';
 import 'package:whisper/features/sign_up/data/repository/sign_up_repository_impl.dart';
 import 'package:whisper/features/sign_up/domain/model/sign_up_request_model.dart';
+
 import 'package:whisper/features/sign_up/presentation/bloc/sign_up_bloc.dart';
 
 import '../../../barrel.dart';
@@ -23,20 +25,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       child: BlocListener<SignUpBloc, SignUpState>(
         listenWhen: (previous, current) =>
-            previous.error != current.error ||
-            previous.signUpResponse != current.signUpResponse,
+            previous.signUpResponse != current.signUpResponse ||
+            previous.error != current.error,
         listener: (context, state) {
-          if (state.signUpResponse.statusCode == "200") {
+          if (state.signUpResponse.uid.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Sign-up successful!")),
             );
-          }
-          if (state.signUpResponse.statusCode == "404") {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.signUpResponse.message)),
-            );
-          }
-          if (state.error.isNotEmpty) {
+          } else if (state.error.isNotEmpty) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.error)));
@@ -66,6 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       builder: (context, state) {
                         return TextFormField(
                           keyboardType: TextInputType.name,
+                          autocorrect: false,
                           onChanged: (value) {
                             context.read<SignUpBloc>().add(
                               SignUpEvent.onNameChanged(value),

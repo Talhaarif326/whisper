@@ -9,13 +9,15 @@ part of 'sign_up_response_model.dart';
 _$SignUpResponseModelImpl _$$SignUpResponseModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$SignUpResponseModelImpl(
-  statusCode: json['statusCode'] as String,
+  email: json['email'] as String,
   message: json['message'] as String,
+  uid: json['uid'] as String,
 );
 
 Map<String, dynamic> _$$SignUpResponseModelImplToJson(
   _$SignUpResponseModelImpl instance,
 ) => <String, dynamic>{
-  'statusCode': instance.statusCode,
+  'email': instance.email,
   'message': instance.message,
+  'uid': instance.uid,
 };

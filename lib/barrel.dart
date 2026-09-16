@@ -5,6 +5,7 @@ export 'package:whisper/features/presentation/profile_screen.dart';
 export 'package:whisper/features/presentation/setting_screen.dart';
 export 'package:whisper/features/sign_up/presentation/sign_up_screen.dart';
 export 'package:whisper/features/login/presentation/login_screen.dart';
+export 'package:whisper/features/forgot/presentation/forgot_screen.dart';
 
 export 'package:whisper/core/app_routes/routes_manager.dart';
 

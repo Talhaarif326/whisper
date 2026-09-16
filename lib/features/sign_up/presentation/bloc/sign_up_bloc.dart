@@ -29,14 +29,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           emit(state.copyWith(confirmPassword: e.confirmPassword));
         },
         onSignUp: (event) async {
-          await repository
-              .signUp(event.request)
-              .then((apiResponse) {
-                emit(state.copyWith(signUpResponse: apiResponse));
-              })
-              .catchError((error) {
-                emit(state.copyWith(error: error.toString()));
-              });
+          final result = await repository.signUp(event.request);
+          print(result);
+
+          result.fold(
+            (failure) {
+              emit(state.copyWith(error: failure.message));
+            },
+            (response) {
+              emit(state.copyWith(signUpResponse: response, uid: response.uid));
+            },
+          );
         },
       );
     });

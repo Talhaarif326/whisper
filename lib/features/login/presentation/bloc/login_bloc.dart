@@ -26,21 +26,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final password = state.password;
 
           // Call the login repository to perform the login operation
-          await loginRepository
-              .login(email, password)
-              .then((result) {
-                emit(
-                  state.copyWith(
-                    errorMessage: result.message,
-                    statusCode: result.statusCode,
-                  ),
-                );
-              })
-              .catchError((error) {
-                emit(
-                  state.copyWith(errorMessage: error.toString(), statusCode: 0),
-                );
-              });
+          final result = await loginRepository.login(email, password);
+
+          result.fold(
+            (failure) {
+              emit(state.copyWith(errorMessage: failure.message));
+            },
+            (loginModel) {
+              emit(state.copyWith(errorMessage: ''));
+            },
+          );
         },
       );
     });

@@ -8,7 +8,8 @@ class SignUpState with _$SignUpState {
     @Default("") String password,
     @Default("") String confirmPassword,
     @Default("") String error,
-    @Default(SignUpResponseModel(statusCode: "0", message: 'Initial state'))
+    @Default('') String uid,
+    @Default(SignUpResponseModel(email: "", message: 'Initial state', uid: ''))
     @Default("")
     SignUpResponseModel signUpResponse,
   }) = _SignUpState;

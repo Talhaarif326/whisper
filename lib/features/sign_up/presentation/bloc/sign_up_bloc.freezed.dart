@@ -1092,6 +1092,7 @@ mixin _$SignUpState {
   String get password => throw _privateConstructorUsedError;
   String get confirmPassword => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   SignUpResponseModel get signUpResponse => throw _privateConstructorUsedError;
 
   /// Create a copy of SignUpState
@@ -1114,6 +1115,7 @@ abstract class $SignUpStateCopyWith<$Res> {
     String password,
     String confirmPassword,
     String error,
+    String uid,
     SignUpResponseModel signUpResponse,
   });
 
@@ -1140,6 +1142,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
     Object? password = null,
     Object? confirmPassword = null,
     Object? error = null,
+    Object? uid = null,
     Object? signUpResponse = null,
   }) {
     return _then(
@@ -1163,6 +1166,10 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
             error: null == error
                 ? _value.error
                 : error // ignore: cast_nullable_to_non_nullable
+                      as String,
+            uid: null == uid
+                ? _value.uid
+                : uid // ignore: cast_nullable_to_non_nullable
                       as String,
             signUpResponse: null == signUpResponse
                 ? _value.signUpResponse
@@ -1199,6 +1206,7 @@ abstract class _$$SignUpStateImplCopyWith<$Res>
     String password,
     String confirmPassword,
     String error,
+    String uid,
     SignUpResponseModel signUpResponse,
   });
 
@@ -1225,6 +1233,7 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
     Object? password = null,
     Object? confirmPassword = null,
     Object? error = null,
+    Object? uid = null,
     Object? signUpResponse = null,
   }) {
     return _then(
@@ -1249,6 +1258,10 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
             ? _value.error
             : error // ignore: cast_nullable_to_non_nullable
                   as String,
+        uid: null == uid
+            ? _value.uid
+            : uid // ignore: cast_nullable_to_non_nullable
+                  as String,
         signUpResponse: null == signUpResponse
             ? _value.signUpResponse
             : signUpResponse // ignore: cast_nullable_to_non_nullable
@@ -1267,9 +1280,11 @@ class _$SignUpStateImpl implements _SignUpState {
     this.password = "",
     this.confirmPassword = "",
     this.error = "",
+    this.uid = '',
     this.signUpResponse = const SignUpResponseModel(
-      statusCode: "0",
+      email: "",
       message: 'Initial state',
+      uid: '',
     ),
   });
 
@@ -1290,11 +1305,14 @@ class _$SignUpStateImpl implements _SignUpState {
   final String error;
   @override
   @JsonKey()
+  final String uid;
+  @override
+  @JsonKey()
   final SignUpResponseModel signUpResponse;
 
   @override
   String toString() {
-    return 'SignUpState(name: $name, email: $email, password: $password, confirmPassword: $confirmPassword, error: $error, signUpResponse: $signUpResponse)';
+    return 'SignUpState(name: $name, email: $email, password: $password, confirmPassword: $confirmPassword, error: $error, uid: $uid, signUpResponse: $signUpResponse)';
   }
 
   @override
@@ -1309,6 +1327,7 @@ class _$SignUpStateImpl implements _SignUpState {
             (identical(other.confirmPassword, confirmPassword) ||
                 other.confirmPassword == confirmPassword) &&
             (identical(other.error, error) || other.error == error) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.signUpResponse, signUpResponse) ||
                 other.signUpResponse == signUpResponse));
   }
@@ -1321,6 +1340,7 @@ class _$SignUpStateImpl implements _SignUpState {
     password,
     confirmPassword,
     error,
+    uid,
     signUpResponse,
   );
 
@@ -1340,6 +1360,7 @@ abstract class _SignUpState implements SignUpState {
     final String password,
     final String confirmPassword,
     final String error,
+    final String uid,
     final SignUpResponseModel signUpResponse,
   }) = _$SignUpStateImpl;
 
@@ -1353,6 +1374,8 @@ abstract class _SignUpState implements SignUpState {
   String get confirmPassword;
   @override
   String get error;
+  @override
+  String get uid;
   @override
   SignUpResponseModel get signUpResponse;
 
