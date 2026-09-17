@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               emit(state.copyWith(errorMessage: failure.message));
             },
             (loginModel) {
-              emit(state.copyWith(errorMessage: ''));
+              emit(state.copyWith(errorMessage: "Login successful"));
             },
           );
         },

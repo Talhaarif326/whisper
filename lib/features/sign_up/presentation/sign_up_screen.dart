@@ -32,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Sign-up successful!")),
             );
+            Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);
           } else if (state.error.isNotEmpty) {
             ScaffoldMessenger.of(
               context,

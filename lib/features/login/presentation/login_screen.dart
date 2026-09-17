@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listenWhen: (previous, current) =>
             previous.errorMessage != current.errorMessage,
         listener: (context, state) {
-          if (state.errorMessage.isEmpty) {
+          if (state.errorMessage == "Login successful") {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text("Login successful"),
@@ -147,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context, state) {
                       return ContinueButton(
                         onPressed: () {
+                          print("login Button presseed");
                           if (_formKey.currentState!.validate()) {
                             context.read<LoginBloc>().add(
                               LoginEvent.onLoginPressed(),

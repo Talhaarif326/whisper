@@ -644,7 +644,6 @@ mixin _$LoginState {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
-  int get statusCode => throw _privateConstructorUsedError;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -660,12 +659,7 @@ abstract class $LoginStateCopyWith<$Res> {
     $Res Function(LoginState) then,
   ) = _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({
-    String email,
-    String password,
-    String errorMessage,
-    int statusCode,
-  });
+  $Res call({String email, String password, String errorMessage});
 }
 
 /// @nodoc
@@ -686,7 +680,6 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? email = null,
     Object? password = null,
     Object? errorMessage = null,
-    Object? statusCode = null,
   }) {
     return _then(
       _value.copyWith(
@@ -702,10 +695,6 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
                 ? _value.errorMessage
                 : errorMessage // ignore: cast_nullable_to_non_nullable
                       as String,
-            statusCode: null == statusCode
-                ? _value.statusCode
-                : statusCode // ignore: cast_nullable_to_non_nullable
-                      as int,
           )
           as $Val,
     );
@@ -721,12 +710,7 @@ abstract class _$$LoginStateImplCopyWith<$Res>
   ) = __$$LoginStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String email,
-    String password,
-    String errorMessage,
-    int statusCode,
-  });
+  $Res call({String email, String password, String errorMessage});
 }
 
 /// @nodoc
@@ -746,7 +730,6 @@ class __$$LoginStateImplCopyWithImpl<$Res>
     Object? email = null,
     Object? password = null,
     Object? errorMessage = null,
-    Object? statusCode = null,
   }) {
     return _then(
       _$LoginStateImpl(
@@ -762,10 +745,6 @@ class __$$LoginStateImplCopyWithImpl<$Res>
             ? _value.errorMessage
             : errorMessage // ignore: cast_nullable_to_non_nullable
                   as String,
-        statusCode: null == statusCode
-            ? _value.statusCode
-            : statusCode // ignore: cast_nullable_to_non_nullable
-                  as int,
       ),
     );
   }
@@ -778,7 +757,6 @@ class _$LoginStateImpl implements _LoginState {
     this.email = '',
     this.password = '',
     this.errorMessage = "",
-    this.statusCode = 0,
   });
 
   @override
@@ -790,13 +768,10 @@ class _$LoginStateImpl implements _LoginState {
   @override
   @JsonKey()
   final String errorMessage;
-  @override
-  @JsonKey()
-  final int statusCode;
 
   @override
   String toString() {
-    return 'LoginState(email: $email, password: $password, errorMessage: $errorMessage, statusCode: $statusCode)';
+    return 'LoginState(email: $email, password: $password, errorMessage: $errorMessage)';
   }
 
   @override
@@ -808,14 +783,11 @@ class _$LoginStateImpl implements _LoginState {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode));
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, password, errorMessage, statusCode);
+  int get hashCode => Object.hash(runtimeType, email, password, errorMessage);
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -839,8 +811,6 @@ abstract class _LoginState implements LoginState {
   String get password;
   @override
   String get errorMessage;
-  @override
-  int get statusCode;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.

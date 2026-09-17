@@ -1,6 +1,6 @@
 export 'package:whisper/features/spash/presentation/splash_screen.dart';
 export 'package:whisper/features/onboarding/presentation/onboarding_screen.dart';
-export 'package:whisper/features/presentation/chat_screen.dart';
+export 'package:whisper/features/chat/presentation/chat_screen.dart';
 export 'package:whisper/features/presentation/profile_screen.dart';
 export 'package:whisper/features/presentation/setting_screen.dart';
 export 'package:whisper/features/sign_up/presentation/sign_up_screen.dart';
