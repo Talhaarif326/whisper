@@ -8,8 +8,29 @@ import 'package:whisper/features/chat/domain/model/message_response_model.dart';
 import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
 import 'package:whisper/features/chat/presentation/bloc/chat_bloc_bloc.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  late TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _textEditingController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -17,92 +38,120 @@ class ChatScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ChatBlocBloc(
         chatRepositoryImpl: ChatRepositoryImpl(RemoteDataSource()),
-      ),
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Chat'), centerTitle: true),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: BlocBuilder<ChatBlocBloc, ChatBlocState>(
-                  builder: (context, state) {
-                    return ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
-                      itemCount: state.messages.length,
-                      itemBuilder: (context, index) {
-                        return _ChatBubble(message: state.messages[index]);
-                      },
-                    );
-                  },
+      )..add(const ChatBlocEvent.getMessages()),
+      child: BlocListener<ChatBlocBloc, ChatBlocState>(
+        listener: (context, state) {
+          if (state.isLoading) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('Loading messages...')));
+          }
+          if (state.errorMessage.isNotEmpty) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          }
+          if (!state.isLoading &&
+              state.errorMessage.isEmpty &&
+              state.messages.isNotEmpty) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(title: const Text('Chat'), centerTitle: true),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: BlocBuilder<ChatBlocBloc, ChatBlocState>(
+                    builder: (context, state) {
+                      return ListView.builder(
+                        reverse: true,
+                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+                        itemCount: state.messages.length,
+                        itemBuilder: (context, index) {
+                          return _ChatBubble(message: state.messages[index]);
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              Material(
-                elevation: 4,
-                color: theme.colorScheme.surface,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: BlocBuilder<ChatBlocBloc, ChatBlocState>(
+                Material(
+                  elevation: 4,
+                  color: theme.colorScheme.surface,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: BlocBuilder<ChatBlocBloc, ChatBlocState>(
+                            buildWhen: (previous, current) =>
+                                current.messageChanged !=
+                                previous.messageChanged,
+                            builder: (context, state) {
+                              return TextField(
+                                minLines: 1,
+                                maxLines: 4,
+                                textInputAction: TextInputAction.send,
+                                controller: _textEditingController,
+                                decoration: InputDecoration(
+                                  hintText: 'Write a message...',
+                                  filled: true,
+                                  fillColor:
+                                      theme.colorScheme.surfaceContainerHighest,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 18,
+                                    vertical: 12,
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  context.read<ChatBlocBloc>().add(
+                                    ChatBlocEvent.onMessageChanged(value),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        BlocBuilder<ChatBlocBloc, ChatBlocState>(
                           buildWhen: (previous, current) =>
                               current.messageChanged != previous.messageChanged,
                           builder: (context, state) {
-                            return TextField(
-                              minLines: 1,
-                              maxLines: 4,
-                              textInputAction: TextInputAction.send,
-                              decoration: InputDecoration(
-                                hintText: 'Write a message...',
-                                filled: true,
-                                fillColor:
-                                    theme.colorScheme.surfaceContainerHighest,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(24),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 12,
-                                ),
-                              ),
-                              onChanged: (value) {
+                            return IconButton.filled(
+                              onPressed: () {
+                                final message = state.messageChanged.trim();
+                                if (message.isEmpty) {
+                                  return;
+                                }
+
                                 context.read<ChatBlocBloc>().add(
-                                  ChatBlocEvent.onMessageChanged(value),
+                                  ChatBlocEvent.sendMessage(
+                                    MessageSendingModel(
+                                      // isMine: true,
+                                      message: message,
+                                    ),
+                                  ),
                                 );
+                                _textEditingController.clear();
                               },
+                              tooltip: 'Send message',
+                              icon: const Icon(Icons.send_rounded),
                             );
                           },
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      BlocBuilder<ChatBlocBloc, ChatBlocState>(
-                        buildWhen: (previous, current) =>
-                            current.messageChanged != previous.messageChanged,
-                        builder: (context, state) {
-                          return IconButton.filled(
-                            onPressed: () {
-                              print("button pressed");
-
-                              context.read<ChatBlocBloc>().add(
-                                ChatBlocEvent.sendMessage(
-                                  MessageSendingModel(
-                                    message: state.messageChanged,
-                                  ),
-                                ),
-                              );
-                            },
-                            tooltip: 'Send message',
-                            icon: const Icon(Icons.send_rounded),
-                          );
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -147,13 +196,13 @@ class _ChatBubble extends StatelessWidget {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-            Text(
-              message.uid,
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: textColor.withValues(alpha: 0.75),
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            // Text(
+            //   message.uid,
+            //   style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            //     color: textColor.withValues(alpha: 0.75),
+            //     fontWeight: FontWeight.w600,
+            //   ),
+            // ),
             const SizedBox(height: 3),
             Text(
               message.message,

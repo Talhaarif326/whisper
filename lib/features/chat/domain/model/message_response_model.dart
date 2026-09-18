@@ -8,7 +8,6 @@ abstract class MessageResponseModel with _$MessageResponseModel {
   const factory MessageResponseModel({
     required String message,
     required bool isMine,
-    required String uid,
     required DateTime timestamp,
   }) = _MessageResponseModel;
 

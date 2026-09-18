@@ -20,17 +20,21 @@ class ChatBlocBloc extends Bloc<ChatBlocEvent, ChatBlocState> {
         },
 
         sendMessage: (e) async {
-          // print(e.message.message.toString());
           await _chatRepositoryImpl.sendMessage(e.message);
         },
 
         getMessages: (e) async {
           emit(state.copyWith(isLoading: true));
+
           await emit
               .forEach<List<MessageResponseModel>>(
                 _chatRepositoryImpl.getMessages(),
-                onData: (message) =>
-                    ChatBlocState(messages: message, isLoading: false),
+                onData: (messageList) {
+                  return state.copyWith(
+                    isLoading: false,
+                    messages: messageList,
+                  );
+                },
               )
               .onError((error, _) {
                 print(error);

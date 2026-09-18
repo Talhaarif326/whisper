@@ -11,7 +11,6 @@ _$MessageResponseModelImpl _$$MessageResponseModelImplFromJson(
 ) => _$MessageResponseModelImpl(
   message: json['message'] as String,
   isMine: json['isMine'] as bool,
-  uid: json['uid'] as String,
   timestamp: DateTime.parse(json['timestamp'] as String),
 );
 
@@ -20,6 +19,5 @@ Map<String, dynamic> _$$MessageResponseModelImplToJson(
 ) => <String, dynamic>{
   'message': instance.message,
   'isMine': instance.isMine,
-  'uid': instance.uid,
   'timestamp': instance.timestamp.toIso8601String(),
 };
