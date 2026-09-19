@@ -41,11 +41,6 @@ class _ChatScreenState extends State<ChatScreen> {
       )..add(const ChatBlocEvent.getMessages()),
       child: BlocListener<ChatBlocBloc, ChatBlocState>(
         listener: (context, state) {
-          if (state.isLoading) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('Loading messages...')));
-          }
           if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(
@@ -59,13 +54,27 @@ class _ChatScreenState extends State<ChatScreen> {
           }
         },
         child: Scaffold(
-          appBar: AppBar(title: const Text('Chat'), centerTitle: true),
+          appBar: AppBar(
+            title: const Text('Chat'),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutesManager.settingScreen);
+                },
+              ),
+            ],
+          ),
           body: SafeArea(
             child: Column(
               children: [
                 Expanded(
                   child: BlocBuilder<ChatBlocBloc, ChatBlocState>(
                     builder: (context, state) {
+                      if (state.isLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      }
                       return ListView.builder(
                         reverse: true,
                         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
