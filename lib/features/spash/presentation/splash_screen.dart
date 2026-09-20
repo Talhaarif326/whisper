@@ -25,7 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
               previous.isLoggedIn != current.isLoggedIn,
           listener: (context, state) {
             if (state.isLoggedIn!) {
-              Navigator.pushReplacementNamed(context, RoutesManager.chatScreen);
+              Navigator.pushReplacementNamed(
+                context,
+                RoutesManager.contactsScreen,
+              );
             }
             if (!state.isLoggedIn!) {
               Navigator.pushReplacementNamed(

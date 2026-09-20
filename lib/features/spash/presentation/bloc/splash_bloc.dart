@@ -13,7 +13,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   Future<void> _isLoggedIn(IsLoggedIn event, Emitter<SplashState> emit) async {
     final user = await _splashRepository.checkUserStatus();
     if (user != null) {
-      print(user);
       emit(state.copyWith(isLoggedIn: true));
     } else {
       emit(state.copyWith(isLoggedIn: false));

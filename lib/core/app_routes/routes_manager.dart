@@ -10,6 +10,7 @@ class RoutesManager {
   static const String settingScreen = "/settingScreen";
   static const String loginScreen = "/loginScreen";
   static const String forgotScreen = "/forgotScreen";
+  static const String contactsScreen = "/contactsScreen";
 }
 
 class RoutesGenerator {
@@ -31,6 +32,8 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case RoutesManager.forgotScreen:
         return MaterialPageRoute(builder: (_) => ForgotScreen());
+      case RoutesManager.contactsScreen:
+        return MaterialPageRoute(builder: (_) => ContactsScreen());
 
       default:
         return undefinedRoute();
