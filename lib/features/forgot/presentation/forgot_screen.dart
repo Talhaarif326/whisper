@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/constants/app_size.dart';
 import 'package:whisper/core/widgets/widget.dart';
 
 class ForgotScreen extends StatefulWidget {
@@ -23,31 +24,36 @@ class _ForgotScreenState extends State<ForgotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(AppPadding.padding16),
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Forgot Password",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: AppSize.sizeDouble40,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: AppSize.sizeDouble24),
               const Text(
                 "Enter your email and we will send you a password reset link.",
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 48),
+              SizedBox(height: AppSize.sizeDouble48),
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(
+                      AppSize.sizeDouble20,
+                    ),
                   ),
                   errorBorder: const OutlineInputBorder(),
                   hintText: "Email",
@@ -64,7 +70,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 48),
+              SizedBox(height: AppSize.sizeDouble48),
               ContinueButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -77,7 +83,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 },
                 name: "Reset Password",
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: AppSize.sizeDouble16),
               TextButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(

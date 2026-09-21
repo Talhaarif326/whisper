@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ColorManager {
-  static Color primaryColor = Color.fromRGBO(63, 114, 175, .6);
+  static const Color seedColor = Color(0xFF3F72AF);
+
+  static ColorScheme colorScheme(Brightness brightness) {
+    return ColorScheme.fromSeed(seedColor: seedColor, brightness: brightness);
+  }
+
+  static Color get primaryColor => colorScheme(Brightness.light).primary;
 }

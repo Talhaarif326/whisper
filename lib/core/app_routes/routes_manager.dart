@@ -21,7 +21,13 @@ class RoutesGenerator {
       case RoutesManager.onBoardingScreen:
         return MaterialPageRoute(builder: (_) => OnboardingScreen());
       case RoutesManager.chatScreen:
-        return MaterialPageRoute(builder: (_) => ChatScreen());
+        final chatScreenArg = route.arguments as ChatScreenArg;
+        return MaterialPageRoute(
+          builder: (_) => ChatScreen(
+            recipianID: chatScreenArg.recipiantID,
+            name: chatScreenArg.recipiantName,
+          ),
+        );
       case RoutesManager.signUpScreen:
         return MaterialPageRoute(builder: (_) => SignUpScreen());
       case RoutesManager.profileScreen:

@@ -37,10 +37,10 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Scaffold(
           appBar: AppBar(title: const Text('Settings')),
           body: ListView(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(AppPadding.padding20),
             children: [
               CircleAvatar(
-                radius: 48,
+                radius: AppSize.sizeDouble48,
                 backgroundImage: user?.photoURL == null
                     ? null
                     : NetworkImage(user!.photoURL!),
@@ -48,13 +48,13 @@ class _SettingScreenState extends State<SettingScreen> {
                     ? const Icon(Icons.person, size: 48)
                     : null,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: AppSize.sizeDouble10),
               Text(
                 user?.displayName ?? user?.email ?? 'Your profile',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: AppSize.sizeDouble8),
               Center(
                 child: TextButton.icon(
                   onPressed: () {
@@ -64,7 +64,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   label: const Text('Edit profile'),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: AppSize.sizeDouble20),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Notifications'),
@@ -76,9 +76,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: AppSize.sizeDouble24),
               SizedBox(
-                height: 48,
+                height: AppSize.sizeDouble48,
                 child: BlocBuilder<SettingBloc, SettingState>(
                   builder: (context, state) {
                     return OutlinedButton.icon(

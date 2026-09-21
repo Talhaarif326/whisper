@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whisper/barrel.dart';
 import 'package:whisper/features/contacts/data/remote_data_source/contact_remote_data_source.dart';
@@ -31,14 +32,70 @@ class _ContactsScreenState extends State<ContactsScreen> {
           appBar: AppBar(title: const Text('Contacts')),
           body: BlocBuilder<ContactBloc, ContactState>(
             builder: (context, state) {
+              final colorScheme = Theme.of(context).colorScheme;
+
               return ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppPadding.padding16,
+                  vertical: AppPadding.padding12,
+                ),
                 itemCount: state.contacts.length,
                 itemBuilder: (BuildContext context, int index) {
+                  if (state.contacts[index]["uid"] ==
+                      FirebaseAuth.instance.currentUser!.uid) {
+                    return SizedBox.shrink();
+                  }
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, RoutesManager.chatScreen);
+                      Navigator.pushNamed(
+                        context,
+                        RoutesManager.chatScreen,
+                        arguments: ChatScreenArg(
+                          recipiantName: state.contacts[index]["name"],
+                          recipiantID: state.contacts[index]["uid"],
+                        ),
+                      );
                     },
-                    child: ListTile(title: Text(state.contacts[index]["name"])),
+                    child: Card(
+                      margin: EdgeInsets.only(bottom: AppPadding.padding12),
+                      elevation: AppSize.sizeDouble5,
+                      color: colorScheme.primaryContainer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppSize.sizeDouble16,
+                        ),
+                      ),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: AppPadding.padding16,
+                          vertical: AppPadding.padding8,
+                        ),
+                        leading: CircleAvatar(
+                          backgroundColor: colorScheme.primary,
+                          foregroundColor: colorScheme.onPrimary,
+                          child: const Icon(Icons.person_outline),
+                        ),
+                        title: Text(
+                          state.contacts[index]["name"],
+                          style: TextStyle(
+                            color: colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          state.contacts[index]["email"],
+                          style: TextStyle(
+                            color: colorScheme.onPrimaryContainer.withValues(
+                              alpha: 0.8,
+                            ),
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.chevron_right,
+                          color: colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                    ),
                   );
                 },
               );
@@ -48,4 +105,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
       ),
     );
   }
+}
+
+class ChatScreenArg {
+  final String recipiantName;
+  final String recipiantID;
+
+  ChatScreenArg({required this.recipiantName, required this.recipiantID});
 }

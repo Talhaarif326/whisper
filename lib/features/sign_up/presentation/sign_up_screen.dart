@@ -42,22 +42,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Scaffold(
           body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(AppPadding.padding16),
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 100),
-                    const Text(
+                    SizedBox(height: AppSize.sizeDouble100),
+                    Text(
                       "Create Account",
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: AppSize.sizeDouble40,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 100),
+                    SizedBox(height: AppSize.sizeDouble100),
                     BlocBuilder<SignUpBloc, SignUpState>(
                       buildWhen: (previous, current) => previous != current,
                       builder: (context, state) {
@@ -71,7 +71,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(
+                                AppSize.sizeDouble20,
+                              ),
                             ),
                             errorBorder: const OutlineInputBorder(),
                             hintText: "Full Name",
@@ -85,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: AppSize.sizeDouble10),
                     BlocBuilder<SignUpBloc, SignUpState>(
                       builder: (context, state) {
                         return TextFormField(
@@ -97,7 +99,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(
+                                AppSize.sizeDouble20,
+                              ),
                             ),
                             errorBorder: const OutlineInputBorder(),
                             hintText: "Email",
@@ -116,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: AppSize.sizeDouble10),
                     BlocBuilder<SignUpBloc, SignUpState>(
                       builder: (context, state) {
                         return TextFormField(
@@ -128,7 +132,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(
+                                AppSize.sizeDouble20,
+                              ),
                             ),
                             errorBorder: const OutlineInputBorder(),
                             hintText: "Password",
@@ -145,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: AppSize.sizeDouble10),
                     BlocBuilder<SignUpBloc, SignUpState>(
                       builder: (context, state) {
                         return TextFormField(
@@ -157,7 +163,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(
+                                AppSize.sizeDouble20,
+                              ),
                             ),
                             errorBorder: const OutlineInputBorder(),
                             hintText: "Confirm Password",
@@ -175,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         );
                       },
                     ),
-                    const SizedBox(height: 5),
+                    SizedBox(height: AppSize.sizeDouble5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -191,7 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 80),
+                    SizedBox(height: AppSize.sizeDouble80),
                     BlocBuilder<SignUpBloc, SignUpState>(
                       buildWhen: (previous, current) => previous != current,
                       builder: (context, state) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/constants/app_size.dart';
 
 import 'package:whisper/core/widgets/widget.dart';
 import 'package:whisper/features/login/data/repository_impl.dart';
@@ -25,25 +26,36 @@ class _LoginScreenState extends State<LoginScreen> {
             previous.errorMessage != current.errorMessage,
         listener: (context, state) {
           if (state.errorMessage == "Login successful") {
+            final colorScheme = Theme.of(context).colorScheme;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Login successful"),
-                backgroundColor: Colors.green,
+                content: Text(
+                  "Login successful",
+                  style: TextStyle(color: colorScheme.onPrimary),
+                ),
+                backgroundColor: colorScheme.primary,
               ),
             );
-            Navigator.pushReplacementNamed(context, RoutesManager.chatScreen);
+            Navigator.pushReplacementNamed(
+              context,
+              RoutesManager.contactsScreen,
+            );
           } else if (state.errorMessage.isNotEmpty) {
+            final colorScheme = Theme.of(context).colorScheme;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage),
-                backgroundColor: Colors.red,
+                content: Text(
+                  state.errorMessage,
+                  style: TextStyle(color: colorScheme.onError),
+                ),
+                backgroundColor: colorScheme.error,
               ),
             );
           }
         },
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppPadding.padding16),
             child: Form(
               key: _formKey,
               child: Column(
@@ -52,9 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     "Welcome Back",
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: AppSize.sizeDouble40,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 100),
+                  SizedBox(height: AppSize.sizeDouble100),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return TextFormField(
@@ -79,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(
+                              AppSize.sizeDouble20,
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(),
                           hint: Text("Email"),
@@ -87,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: AppSize.sizeDouble10),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return TextFormField(
@@ -109,7 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(
+                              AppSize.sizeDouble20,
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(),
                           hint: Text("Password"),
@@ -117,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: AppSize.sizeDouble5),
                   Row(
                     children: [
                       TextButton(
@@ -141,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 80),
+                  SizedBox(height: AppSize.sizeDouble80),
                   BlocBuilder<LoginBloc, LoginState>(
                     buildWhen: (previous, current) => previous != current,
                     builder: (context, state) {

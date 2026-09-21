@@ -72,7 +72,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       alignment: Alignment.center,
                       height: AppSize.sizeDouble80,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(
+                          AppSize.sizeDouble25,
+                        ),
                         color: ColorManager.primaryColor,
                       ),
                       child: Padding(

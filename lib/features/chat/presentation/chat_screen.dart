@@ -9,7 +9,10 @@ import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
 import 'package:whisper/features/chat/presentation/bloc/chat_bloc_bloc.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  const ChatScreen({required this.recipianID, required this.name, super.key});
+
+  final String recipianID;
+  final String name;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -37,7 +40,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return BlocProvider(
       create: (context) => ChatBlocBloc(
-        chatRepositoryImpl: ChatRepositoryImpl(RemoteDataSource()),
+        chatRepositoryImpl: ChatRepositoryImpl(
+          RemoteDataSource(recipiant: widget.recipianID),
+        ),
       )..add(const ChatBlocEvent.getMessages()),
       child: BlocListener<ChatBlocBloc, ChatBlocState>(
         listener: (context, state) {
@@ -55,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Chat'),
+            title: Text(widget.name),
             centerTitle: true,
             actions: [
               IconButton(
@@ -77,7 +82,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       }
                       return ListView.builder(
                         reverse: true,
-                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+                        padding: EdgeInsets.fromLTRB(
+                          AppPadding.padding16,
+                          AppPadding.padding20,
+                          AppPadding.padding16,
+                          AppPadding.padding12,
+                        ),
                         itemCount: state.messages.length,
                         itemBuilder: (context, index) {
                           return _ChatBubble(message: state.messages[index]);
@@ -90,7 +100,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   elevation: 4,
                   color: theme.colorScheme.surface,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+                    padding: EdgeInsets.fromLTRB(
+                      AppPadding.padding16,
+                      AppPadding.padding10,
+                      AppPadding.padding16,
+                      AppPadding.padding12,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -111,12 +126,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                   fillColor:
                                       theme.colorScheme.surfaceContainerHighest,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(24),
+                                    borderRadius: BorderRadius.circular(
+                                      AppSize.sizeDouble24,
+                                    ),
                                     borderSide: BorderSide.none,
                                   ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 18,
-                                    vertical: 12,
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: AppPadding.padding18,
+                                    vertical: AppPadding.padding12,
                                   ),
                                 ),
                                 onChanged: (value) {
@@ -128,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        SizedBox(width: AppSize.sizeDouble8),
                         BlocBuilder<ChatBlocBloc, ChatBlocState>(
                           buildWhen: (previous, current) =>
                               current.messageChanged != previous.messageChanged,
@@ -139,12 +156,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                 if (message.isEmpty) {
                                   return;
                                 }
-
                                 context.read<ChatBlocBloc>().add(
                                   ChatBlocEvent.sendMessage(
                                     MessageSendingModel(
                                       // isMine: true,
                                       message: message,
+                                      recipiantId: widget.recipianID,
                                     ),
                                   ),
                                 );
@@ -189,8 +206,11 @@ class _ChatBubble extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.sizeOf(context).width * 0.78,
         ),
-        margin: const EdgeInsets.only(bottom: 14),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+        margin: EdgeInsets.only(bottom: AppPadding.padding14),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppPadding.padding16,
+          vertical: AppPadding.padding11,
+        ),
         decoration: BoxDecoration(
           color: bubbleColor,
           borderRadius: BorderRadius.only(
@@ -212,7 +232,7 @@ class _ChatBubble extends StatelessWidget {
             //     fontWeight: FontWeight.w600,
             //   ),
             // ),
-            const SizedBox(height: 3),
+            SizedBox(height: AppSize.sizeDouble3),
             Text(
               message.message,
               style: Theme.of(
