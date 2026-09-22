@@ -4,4 +4,7 @@ part of 'setting_bloc.dart';
 class SettingEvent with _$SettingEvent {
   const factory SettingEvent.started() = _Started;
   const factory SettingEvent.logOut() = _LogOut;
+  const factory SettingEvent.enableOrDisableNotifications({
+    required bool enabled,
+  }) = _EnableOrDisableNotifications;
 }

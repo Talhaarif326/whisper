@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whisper/barrel.dart';
-import 'package:whisper/core/app_routes/routes_manager.dart';
 import 'package:whisper/features/setting/data/remote_data_source/setting_remote_data_source.dart';
 import 'package:whisper/features/setting/data/repository/setting_repository_impl.dart';
 import 'package:whisper/features/setting/presentation/bloc/setting_bloc.dart';
@@ -14,8 +13,6 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool _notificationsEnabled = true;
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -65,15 +62,21 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
               SizedBox(height: AppSize.sizeDouble20),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Notifications'),
-                secondary: const Icon(Icons.notifications_outlined),
-                value: _notificationsEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    _notificationsEnabled = value;
-                  });
+              BlocBuilder<SettingBloc, SettingState>(
+                builder: (context, state) {
+                  return SwitchListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text('Notifications'),
+                    secondary: const Icon(Icons.notifications_outlined),
+                    value: state.notificationsEnabled,
+                    onChanged: (value) {
+                      context.read<SettingBloc>().add(
+                        SettingEvent.enableOrDisableNotifications(
+                          enabled: value,
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
               SizedBox(height: AppSize.sizeDouble24),

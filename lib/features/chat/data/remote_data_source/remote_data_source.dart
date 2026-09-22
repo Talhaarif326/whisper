@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:whisper/core/fcm_auth_helper/fcm_auth_helper.dart';
+
+import "package:http/http.dart" as http;
+
 import 'package:whisper/features/chat/domain/model/message_response_model.dart';
 import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
 
@@ -28,9 +35,70 @@ class RemoteDataSource {
             'recipiantId': message.recipiantId,
             'timestamp': DateTime.now(),
           });
+
+      final recipientSnapshot = await FirebaseDatabase.instance
+          .ref("users")
+          .child(message.recipiantId)
+          .get();
+
+      final recipiantToken =
+          (recipientSnapshot.value as Map?)?['notificationToken'];
+
+      if (recipiantToken != null) {
+        await sendPushNotification(
+          recipiantFcmToken: recipiantToken,
+          senderName: currentUserId,
+          notificationMessage: message.message,
+          chatRoomId: chatRoomId,
+        );
+      }
     } on Exception catch (e) {
       print("Error occurred while sending message: $e");
       throw Exception(e.toString());
+    }
+  }
+
+  Future<void> sendPushNotification({
+    required String recipiantFcmToken,
+    required String senderName,
+    required String notificationMessage,
+    required String chatRoomId,
+  }) async {
+    try {
+      final projectId = "flutter-chat-app-d482d";
+      final url = Uri.parse(
+        "https://fcm.googleapis.com/v1/projects/$projectId/messages:send",
+      );
+
+      final accessToken = await FcmAuthHelper().getFcmToken();
+
+      final payLoad = {
+        "message": {
+          "token": recipiantFcmToken,
+          "notification": {"title": senderName, "body": notificationMessage},
+          "data": {
+            "click_action": "flutterClickAction",
+            "chatRoomId": chatRoomId,
+          },
+        },
+      };
+
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(payLoad),
+      );
+
+      if (response.statusCode == 200) {
+        print("Push notification sent successfully");
+      } else {
+        print("Failed to send push notification");
+      }
+    } on Exception catch (e) {
+      print("error: ${e.toString()}");
     }
   }
 

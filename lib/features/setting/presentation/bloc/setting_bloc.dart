@@ -16,6 +16,13 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
           await _settingRepositoryImpl.logOut();
           emit(state.copyWith(isLoggingOut: true));
         },
+        enableOrDisableNotifications: (e) async {
+          await _settingRepositoryImpl.notificationsEnabledOrDisabled(
+            e.enabled,
+          );
+
+          emit(state.copyWith(notificationsEnabled: e.enabled));
+        },
       );
     });
   }

@@ -12,6 +12,7 @@
 .swiftpm/
 migrate_working_dir/
 .firebase.json
+flutter-chat-app-d482d-firebase-adminsdk-fbsvc-04c46fbb6d.json
 
 # Firebase client configuration
 /lib/firebase_options.dart

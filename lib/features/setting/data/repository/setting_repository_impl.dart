@@ -10,4 +10,9 @@ class SettingRepositoryImpl extends SettingRepository {
   Future<void> logOut() async {
     await _remoteDataSource.signOut();
   }
+
+  @override
+  Future<void> notificationsEnabledOrDisabled(bool enabled) async {
+    await _remoteDataSource.notificationsEnabledOrDisabled(enabled);
+  }
 }

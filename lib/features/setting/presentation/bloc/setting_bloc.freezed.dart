@@ -21,32 +21,41 @@ mixin _$SettingEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() logOut,
+    required TResult Function(bool enabled) enableOrDisableNotifications,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? logOut,
+    TResult? Function(bool enabled)? enableOrDisableNotifications,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? logOut,
+    TResult Function(bool enabled)? enableOrDisableNotifications,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LogOut value) logOut,
+    required TResult Function(_EnableOrDisableNotifications value)
+    enableOrDisableNotifications,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LogOut value)? logOut,
+    TResult? Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LogOut value)? logOut,
+    TResult Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -118,6 +127,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() logOut,
+    required TResult Function(bool enabled) enableOrDisableNotifications,
   }) {
     return started();
   }
@@ -127,6 +137,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? logOut,
+    TResult? Function(bool enabled)? enableOrDisableNotifications,
   }) {
     return started?.call();
   }
@@ -136,6 +147,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? logOut,
+    TResult Function(bool enabled)? enableOrDisableNotifications,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -149,6 +161,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LogOut value) logOut,
+    required TResult Function(_EnableOrDisableNotifications value)
+    enableOrDisableNotifications,
   }) {
     return started(this);
   }
@@ -158,6 +172,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LogOut value)? logOut,
+    TResult? Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
   }) {
     return started?.call(this);
   }
@@ -167,6 +183,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LogOut value)? logOut,
+    TResult Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -225,6 +243,7 @@ class _$LogOutImpl implements _LogOut {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() logOut,
+    required TResult Function(bool enabled) enableOrDisableNotifications,
   }) {
     return logOut();
   }
@@ -234,6 +253,7 @@ class _$LogOutImpl implements _LogOut {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? logOut,
+    TResult? Function(bool enabled)? enableOrDisableNotifications,
   }) {
     return logOut?.call();
   }
@@ -243,6 +263,7 @@ class _$LogOutImpl implements _LogOut {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? logOut,
+    TResult Function(bool enabled)? enableOrDisableNotifications,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -256,6 +277,8 @@ class _$LogOutImpl implements _LogOut {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_LogOut value) logOut,
+    required TResult Function(_EnableOrDisableNotifications value)
+    enableOrDisableNotifications,
   }) {
     return logOut(this);
   }
@@ -265,6 +288,8 @@ class _$LogOutImpl implements _LogOut {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_LogOut value)? logOut,
+    TResult? Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
   }) {
     return logOut?.call(this);
   }
@@ -274,6 +299,8 @@ class _$LogOutImpl implements _LogOut {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_LogOut value)? logOut,
+    TResult Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -288,8 +315,169 @@ abstract class _LogOut implements SettingEvent {
 }
 
 /// @nodoc
+abstract class _$$EnableOrDisableNotificationsImplCopyWith<$Res> {
+  factory _$$EnableOrDisableNotificationsImplCopyWith(
+    _$EnableOrDisableNotificationsImpl value,
+    $Res Function(_$EnableOrDisableNotificationsImpl) then,
+  ) = __$$EnableOrDisableNotificationsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool enabled});
+}
+
+/// @nodoc
+class __$$EnableOrDisableNotificationsImplCopyWithImpl<$Res>
+    extends _$SettingEventCopyWithImpl<$Res, _$EnableOrDisableNotificationsImpl>
+    implements _$$EnableOrDisableNotificationsImplCopyWith<$Res> {
+  __$$EnableOrDisableNotificationsImplCopyWithImpl(
+    _$EnableOrDisableNotificationsImpl _value,
+    $Res Function(_$EnableOrDisableNotificationsImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? enabled = null}) {
+    return _then(
+      _$EnableOrDisableNotificationsImpl(
+        enabled: null == enabled
+            ? _value.enabled
+            : enabled // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$EnableOrDisableNotificationsImpl
+    implements _EnableOrDisableNotifications {
+  const _$EnableOrDisableNotificationsImpl({required this.enabled});
+
+  @override
+  final bool enabled;
+
+  @override
+  String toString() {
+    return 'SettingEvent.enableOrDisableNotifications(enabled: $enabled)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EnableOrDisableNotificationsImpl &&
+            (identical(other.enabled, enabled) || other.enabled == enabled));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, enabled);
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EnableOrDisableNotificationsImplCopyWith<
+    _$EnableOrDisableNotificationsImpl
+  >
+  get copyWith =>
+      __$$EnableOrDisableNotificationsImplCopyWithImpl<
+        _$EnableOrDisableNotificationsImpl
+      >(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() logOut,
+    required TResult Function(bool enabled) enableOrDisableNotifications,
+  }) {
+    return enableOrDisableNotifications(enabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? logOut,
+    TResult? Function(bool enabled)? enableOrDisableNotifications,
+  }) {
+    return enableOrDisableNotifications?.call(enabled);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? logOut,
+    TResult Function(bool enabled)? enableOrDisableNotifications,
+    required TResult orElse(),
+  }) {
+    if (enableOrDisableNotifications != null) {
+      return enableOrDisableNotifications(enabled);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_LogOut value) logOut,
+    required TResult Function(_EnableOrDisableNotifications value)
+    enableOrDisableNotifications,
+  }) {
+    return enableOrDisableNotifications(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_LogOut value)? logOut,
+    TResult? Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
+  }) {
+    return enableOrDisableNotifications?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_LogOut value)? logOut,
+    TResult Function(_EnableOrDisableNotifications value)?
+    enableOrDisableNotifications,
+    required TResult orElse(),
+  }) {
+    if (enableOrDisableNotifications != null) {
+      return enableOrDisableNotifications(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EnableOrDisableNotifications implements SettingEvent {
+  const factory _EnableOrDisableNotifications({required final bool enabled}) =
+      _$EnableOrDisableNotificationsImpl;
+
+  bool get enabled;
+
+  /// Create a copy of SettingEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$EnableOrDisableNotificationsImplCopyWith<
+    _$EnableOrDisableNotificationsImpl
+  >
+  get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$SettingState {
   bool get isLoggingOut => throw _privateConstructorUsedError;
+  bool get notificationsEnabled => throw _privateConstructorUsedError;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -305,7 +493,7 @@ abstract class $SettingStateCopyWith<$Res> {
     $Res Function(SettingState) then,
   ) = _$SettingStateCopyWithImpl<$Res, SettingState>;
   @useResult
-  $Res call({bool isLoggingOut});
+  $Res call({bool isLoggingOut, bool notificationsEnabled});
 }
 
 /// @nodoc
@@ -322,12 +510,19 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? isLoggingOut = null}) {
+  $Res call({
+    Object? isLoggingOut = null,
+    Object? notificationsEnabled = null,
+  }) {
     return _then(
       _value.copyWith(
             isLoggingOut: null == isLoggingOut
                 ? _value.isLoggingOut
                 : isLoggingOut // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            notificationsEnabled: null == notificationsEnabled
+                ? _value.notificationsEnabled
+                : notificationsEnabled // ignore: cast_nullable_to_non_nullable
                       as bool,
           )
           as $Val,
@@ -344,7 +539,7 @@ abstract class _$$SettingStateImplCopyWith<$Res>
   ) = __$$SettingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoggingOut});
+  $Res call({bool isLoggingOut, bool notificationsEnabled});
 }
 
 /// @nodoc
@@ -360,12 +555,19 @@ class __$$SettingStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? isLoggingOut = null}) {
+  $Res call({
+    Object? isLoggingOut = null,
+    Object? notificationsEnabled = null,
+  }) {
     return _then(
       _$SettingStateImpl(
         isLoggingOut: null == isLoggingOut
             ? _value.isLoggingOut
             : isLoggingOut // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        notificationsEnabled: null == notificationsEnabled
+            ? _value.notificationsEnabled
+            : notificationsEnabled // ignore: cast_nullable_to_non_nullable
                   as bool,
       ),
     );
@@ -375,15 +577,21 @@ class __$$SettingStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SettingStateImpl implements _SettingState {
-  const _$SettingStateImpl({this.isLoggingOut = false});
+  const _$SettingStateImpl({
+    this.isLoggingOut = false,
+    this.notificationsEnabled = true,
+  });
 
   @override
   @JsonKey()
   final bool isLoggingOut;
+  @override
+  @JsonKey()
+  final bool notificationsEnabled;
 
   @override
   String toString() {
-    return 'SettingState(isLoggingOut: $isLoggingOut)';
+    return 'SettingState(isLoggingOut: $isLoggingOut, notificationsEnabled: $notificationsEnabled)';
   }
 
   @override
@@ -392,11 +600,14 @@ class _$SettingStateImpl implements _SettingState {
         (other.runtimeType == runtimeType &&
             other is _$SettingStateImpl &&
             (identical(other.isLoggingOut, isLoggingOut) ||
-                other.isLoggingOut == isLoggingOut));
+                other.isLoggingOut == isLoggingOut) &&
+            (identical(other.notificationsEnabled, notificationsEnabled) ||
+                other.notificationsEnabled == notificationsEnabled));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoggingOut);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoggingOut, notificationsEnabled);
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -408,10 +619,15 @@ class _$SettingStateImpl implements _SettingState {
 }
 
 abstract class _SettingState implements SettingState {
-  const factory _SettingState({final bool isLoggingOut}) = _$SettingStateImpl;
+  const factory _SettingState({
+    final bool isLoggingOut,
+    final bool notificationsEnabled,
+  }) = _$SettingStateImpl;
 
   @override
   bool get isLoggingOut;
+  @override
+  bool get notificationsEnabled;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
