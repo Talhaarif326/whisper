@@ -17,7 +17,6 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
           await emit.forEach(
             contacts,
             onData: (contactList) {
-              print("Fetched contacts: ${contactList[0]}");
               return state.copyWith(contacts: contactList);
             },
           );

@@ -6,6 +6,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:whisper/core/fcm_auth_helper/fcm_auth_helper.dart';
 
 import "package:http/http.dart" as http;
+import 'package:whisper/core/notification/notification_helper.dart';
 
 import 'package:whisper/features/chat/domain/model/message_response_model.dart';
 import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
@@ -39,10 +40,10 @@ class RemoteDataSource {
       final recipientSnapshot = await FirebaseDatabase.instance
           .ref("users")
           .child(message.recipiantId)
-          .get();
+          .once();
 
       final recipiantToken =
-          (recipientSnapshot.value as Map?)?['notificationToken'];
+          (recipientSnapshot.snapshot.value as Map?)?['notificationToken'];
 
       if (recipiantToken != null) {
         await sendPushNotification(
@@ -94,6 +95,12 @@ class RemoteDataSource {
 
       if (response.statusCode == 200) {
         print("Push notification sent successfully");
+        NotificationHelper.initNotifications();
+        NotificationHelper.showNotification(
+          senderName: senderName,
+          notificationMessage: notificationMessage,
+          chatRoomId: chatRoomId,
+        );
       } else {
         print("Failed to send push notification");
       }
