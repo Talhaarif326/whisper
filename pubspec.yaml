@@ -47,13 +47,12 @@ dependencies:
   firebase_messaging: ^15.2.10
   googleapis_auth: ^2.3.4
   flutter_local_notifications: ^22.3.1
+  firebase_core: ^3.15.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.4.1
   build_runner: ^2.4.15
-  firebase_core: ^3.6.0
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

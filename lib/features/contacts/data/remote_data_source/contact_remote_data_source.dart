@@ -6,6 +6,10 @@ class ContactRemoteDataSource {
     try {
       final FirebaseDatabase database = FirebaseDatabase.instance;
       return database.ref().child("users").onValue.map((event) {
+        if (event.snapshot.value == null) {
+          print("No contacts found ${event.snapshot.value}");
+          return [];
+        }
         final data = event.snapshot.value as Map<Object?, Object?>;
         return data.values.toList();
       });

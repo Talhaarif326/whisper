@@ -19,8 +19,7 @@ class NotificationHelper {
         );
 
         if (setting.authorizationStatus == AuthorizationStatus.authorized) {
-          String? token = await _fcm.getToken();
-
+          final String? token = await _fcm.getToken();
           if (token != null) {
             String? currentUserId = _auth.currentUser?.uid;
 
@@ -49,18 +48,34 @@ class NotificationHelper {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const DarwinInitializationSettings iosInitializationSettings =
+    const DarwinInitializationSettings initializationSettingsIos =
         DarwinInitializationSettings();
 
     const InitializationSettings initializationSettings =
         InitializationSettings(
           android: initializationSettingsAndroid,
-          iOS: iosInitializationSettings,
+          iOS: initializationSettingsIos,
         );
 
     await flutterLocalNotificationsPlugin.initialize(
       settings: initializationSettings,
     );
+
+    FirebaseMessaging.onMessage
+        .listen((RemoteMessage message) {
+          print("Notification received: ${message.notification!.title!}");
+          if (message.notification != null) {
+            final notification = message.notification;
+            showNotification(
+              senderName: notification!.title ?? "New Message",
+              notificationMessage: notification.body ?? "",
+              chatRoomId: message.data['chatRoomId'] ?? "",
+            );
+          }
+        })
+        .onError((e) {
+          print("Error receiving message: ${e.toString()}");
+        });
   }
 
   // showing notification
@@ -69,13 +84,25 @@ class NotificationHelper {
     required String notificationMessage,
     required String chatRoomId,
   }) async {
+    final AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+          'chat_channel',
+          'Chat Channel',
+          channelDescription: "Channel for chat notifications",
+          importance: Importance.max,
+          priority: Priority.high,
+        );
+
+    final NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+    );
     final id = chatRoomId.hashCode.toSigned(32);
-    Future.delayed(Duration.zero, () {
-      flutterLocalNotificationsPlugin.show(
-        id: id,
-        title: senderName,
-        body: notificationMessage,
-      );
-    });
+
+    flutterLocalNotificationsPlugin.show(
+      id: id,
+      title: senderName,
+      body: notificationMessage,
+      notificationDetails: notificationDetails,
+    );
   }
 }

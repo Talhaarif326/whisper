@@ -6,7 +6,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:whisper/core/fcm_auth_helper/fcm_auth_helper.dart';
 
 import "package:http/http.dart" as http;
-import 'package:whisper/core/notification/notification_helper.dart';
 
 import 'package:whisper/features/chat/domain/model/message_response_model.dart';
 import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
@@ -25,6 +24,8 @@ class RemoteDataSource {
   Future<void> sendMessage(MessageSendingModel message) async {
     final currentUserId = FirebaseAuth.instance.currentUser!.uid;
     final chatRoomId = chatRoom(currentUserId, message.recipiantId);
+    final currentUserName = FirebaseAuth.instance.currentUser!.displayName;
+
     try {
       await firebaseFirestore
           .collection('chat')
@@ -48,13 +49,12 @@ class RemoteDataSource {
       if (recipiantToken != null) {
         await sendPushNotification(
           recipiantFcmToken: recipiantToken,
-          senderName: currentUserId,
+          senderName: currentUserName!,
           notificationMessage: message.message,
           chatRoomId: chatRoomId,
         );
       }
     } on Exception catch (e) {
-      print("Error occurred while sending message: $e");
       throw Exception(e.toString());
     }
   }
@@ -84,7 +84,7 @@ class RemoteDataSource {
         },
       };
 
-      final response = await http.post(
+      await http.post(
         url,
         headers: {
           'Authorization': 'Bearer $accessToken',
@@ -92,20 +92,8 @@ class RemoteDataSource {
         },
         body: jsonEncode(payLoad),
       );
-
-      if (response.statusCode == 200) {
-        print("Push notification sent successfully");
-        NotificationHelper.initNotifications();
-        NotificationHelper.showNotification(
-          senderName: senderName,
-          notificationMessage: notificationMessage,
-          chatRoomId: chatRoomId,
-        );
-      } else {
-        print("Failed to send push notification");
-      }
     } on Exception catch (e) {
-      print("error: ${e.toString()}");
+      throw Exception("Failed to send push notification. ${e.toString()}");
     }
   }
 
@@ -139,9 +127,6 @@ class RemoteDataSource {
           return MessageResponseModel.fromJson(data);
         }).toList(),
       );
-    } on Exception catch (e) {
-      print(e.toString());
-      rethrow;
     } catch (e) {
       throw Exception("Failed to fetch messages. ${e.toString()}");
     }

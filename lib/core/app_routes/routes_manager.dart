@@ -47,8 +47,6 @@ class RoutesGenerator {
   }
 
   static Route<dynamic> undefinedRoute() {
-    return MaterialPageRoute(
-      builder: (contex) => Scaffold(body: Center(child: Text("Undefin"))),
-    );
+    return MaterialPageRoute(builder: (contex) => SizedBox.shrink());
   }
 }

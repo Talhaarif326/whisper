@@ -16,6 +16,7 @@ class SignupRemoteDataSource {
             email: request.email,
             password: request.password,
           );
+      await credentials.user!.updateDisplayName(request.name);
 
       final DatabaseReference ref = FirebaseDatabase.instance
           .ref()

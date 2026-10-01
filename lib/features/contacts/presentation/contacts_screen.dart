@@ -20,12 +20,14 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ContactBloc(ContactRepositoryImp(ContactRemoteDataSource()))
             ..add(ContactEvent.onFetchedContacts()),
       child: BlocListener<ContactBloc, ContactState>(
-        listenWhen: (previous, current) => current.contacts.isNotEmpty,
         listener: (context, state) {
           if (state.contacts.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Contacts fetched successfully!')),
             );
+          }
+          if (state.contacts.isEmpty) {
+            Navigator.pushReplacementNamed(context, RoutesManager.loginScreen);
           }
         },
         child: Scaffold(
