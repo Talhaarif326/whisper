@@ -39,7 +39,9 @@ class _SplashScreenState extends State<SplashScreen> {
           },
           child: Center(
             child: Container(
-              decoration: BoxDecoration(color: ColorManager.primaryColor),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
               height: double.infinity,
               width: double.infinity,
               child: Image.asset("lib/core/app_images/ChatAppLogo2.png"),

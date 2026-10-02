@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/core/app_routes/routes_manager.dart';
 import 'package:whisper/core/constants/app_size.dart';
+import 'package:whisper/core/widgets/app_screen_content.dart';
 import 'package:whisper/core/widgets/widget.dart';
 
 class ForgotScreen extends StatefulWidget {
@@ -23,8 +24,9 @@ class _ForgotScreenState extends State<ForgotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(AppPadding.padding16),
+      body: AppScreenContent(
+        scrollable: true,
+        centerVertically: true,
         child: Form(
           key: _formKey,
           child: Column(
@@ -33,10 +35,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
             children: [
               Text(
                 "Forgot Password",
-                style: TextStyle(
-                  fontSize: AppSize.sizeDouble40,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: AppSize.sizeDouble24),
@@ -49,15 +48,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                      AppSize.sizeDouble20,
-                    ),
-                  ),
-                  errorBorder: const OutlineInputBorder(),
-                  hintText: "Email",
-                ),
+                decoration: InputDecoration(hintText: "Email"),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please Enter Your Email";

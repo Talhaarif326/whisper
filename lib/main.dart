@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/core/app_routes/routes_manager.dart';
-import 'package:whisper/core/app_colors/color_manager.dart';
+import 'package:whisper/core/app_colors/app_theme_manager.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
@@ -21,11 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorManager.colorScheme(Brightness.light)),
-      initialRoute: RoutesManager.splashScreen,
-      onGenerateRoute: RoutesGenerator.generateRoute,
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: AppThemeManager.themeMode,
+      builder: (context, themeMode, child) => MaterialApp(
+        title: 'Whisper',
+        theme: AppThemeManager.lightTheme,
+        darkTheme: AppThemeManager.darkTheme,
+        themeMode: themeMode,
+        initialRoute: RoutesManager.splashScreen,
+        onGenerateRoute: RoutesGenerator.generateRoute,
+      ),
     );
   }
 }

@@ -20,6 +20,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: SafeArea(
           child: BlocBuilder<OnboardingBloc, OnboardingState>(
             builder: (context, state) {
+              final colorScheme = Theme.of(context).colorScheme;
+
               return Column(
                 children: [
                   Expanded(
@@ -28,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       listener: (context, state) {
                         _pageController.animateToPage(
                           state.index,
-                          duration: Duration(microseconds: 300),
+                          duration: AppDuration.pageTransition,
                           curve: Curves.easeInOut,
                         );
                       },
@@ -52,10 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             SizedBox(height: AppSize.sizeDouble40),
                             Text(
                               state.slider[index].heading,
-                              style: TextStyle(
-                                fontSize: AppSize.sizeDouble20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             SizedBox(height: AppSize.sizeDouble12),
                             Text(state.slider[index].subText),
@@ -75,7 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         borderRadius: BorderRadius.circular(
                           AppSize.sizeDouble25,
                         ),
-                        color: ColorManager.primaryColor,
+                        color: colorScheme.primary,
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(AppPadding.padding12),
@@ -92,8 +91,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     },
                                     child: state.index == 0
                                         ? SizedBox.shrink()
-                                        : Image.asset(
+                                        : _themedArrow(
                                             OnboardingImages.letArrow,
+                                            colorScheme.onPrimary,
                                           ),
                                   ),
                                   Row(
@@ -106,12 +106,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         i++
                                       )
                                         if (i == state.index)
-                                          Image.asset(
+                                          _themedArrow(
                                             OnboardingImages.rightArrow,
+                                            colorScheme.onPrimary,
                                           )
                                         else
-                                          Image.asset(
+                                          _themedArrow(
                                             OnboardingImages.letArrow,
+                                            colorScheme.onPrimary,
                                           ),
                                     ],
                                   ),
@@ -123,8 +125,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       );
                                     },
                                     child: state.index < state.slider.length - 1
-                                        ? Image.asset(
+                                        ? _themedArrow(
                                             OnboardingImages.rightArrow,
+                                            colorScheme.onPrimary,
                                           )
                                         : SizedBox.shrink(),
                                   ),
@@ -148,4 +151,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
+
+  Widget _themedArrow(String asset, Color color) => ColorFiltered(
+    colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+    child: Image.asset(asset),
+  );
 }

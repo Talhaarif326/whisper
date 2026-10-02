@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:whisper/core/app_colors/app_theme.dart';
+import 'package:whisper/core/widgets/app_screen_content.dart';
 import 'package:whisper/barrel.dart';
 import 'package:whisper/features/chat/data/remote_data_source/remote_data_source.dart';
 import 'package:whisper/features/chat/data/repository/chat_repository_impl.dart';
@@ -61,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.name),
-            centerTitle: true,
+
             actions: [
               IconButton(
                 icon: const Icon(Icons.settings),
@@ -71,7 +73,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ],
           ),
-          body: SafeArea(
+          body: AppScreenContent(
             child: Column(
               children: [
                 Expanded(
@@ -83,9 +85,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       return ListView.builder(
                         reverse: true,
                         padding: EdgeInsets.fromLTRB(
-                          AppPadding.padding16,
-                          AppPadding.padding20,
-                          AppPadding.padding16,
+                          AppTheme.screenInset,
+                          AppTheme.screenInset,
+                          AppTheme.screenInset,
                           AppPadding.padding12,
                         ),
                         itemCount: state.messages.length,
@@ -97,13 +99,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 Material(
-                  elevation: 4,
+                  elevation: AppTheme.noElevation,
                   color: theme.colorScheme.surface,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                      AppPadding.padding16,
+                      AppTheme.screenInset,
                       AppPadding.padding10,
-                      AppPadding.padding16,
+                      AppTheme.screenInset,
                       AppPadding.padding12,
                     ),
                     child: Row(
@@ -122,19 +124,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                 controller: _textEditingController,
                                 decoration: InputDecoration(
                                   hintText: 'Write a message...',
-                                  filled: true,
-                                  fillColor:
-                                      theme.colorScheme.surfaceContainerHighest,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      AppSize.sizeDouble24,
-                                    ),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: AppPadding.padding18,
-                                    vertical: AppPadding.padding12,
-                                  ),
                                 ),
                                 onChanged: (value) {
                                   context.read<ChatBlocBloc>().add(
@@ -195,7 +184,7 @@ class _ChatBubble extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final bubbleColor = message.isMine
         ? colorScheme.primary
-        : colorScheme.surfaceContainerHighest;
+        : colorScheme.surfaceContainerLowest;
     final textColor = message.isMine
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
@@ -204,7 +193,8 @@ class _ChatBubble extends StatelessWidget {
       alignment: message.isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.sizeOf(context).width * 0.78,
+          maxWidth:
+              MediaQuery.sizeOf(context).width * AppTheme.messageWidthFactor,
         ),
         margin: EdgeInsets.only(bottom: AppPadding.padding14),
         padding: EdgeInsets.symmetric(
@@ -213,11 +203,24 @@ class _ChatBubble extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: bubbleColor,
+          border: Border.all(
+            color: message.isMine
+                ? colorScheme.primary
+                : colorScheme.outlineVariant,
+          ),
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(18),
-            topRight: const Radius.circular(18),
-            bottomLeft: Radius.circular(message.isMine ? 18 : 4),
-            bottomRight: Radius.circular(message.isMine ? 4 : 18),
+            topLeft: const Radius.circular(AppTheme.cornerRadius),
+            topRight: const Radius.circular(AppTheme.cornerRadius),
+            bottomLeft: Radius.circular(
+              message.isMine
+                  ? AppTheme.cornerRadius
+                  : AppTheme.messageTailRadius,
+            ),
+            bottomRight: Radius.circular(
+              message.isMine
+                  ? AppTheme.messageTailRadius
+                  : AppTheme.cornerRadius,
+            ),
           ),
         ),
         child: Column(
@@ -237,7 +240,7 @@ class _ChatBubble extends StatelessWidget {
               message.message,
               style: Theme.of(
                 context,
-              ).textTheme.bodyLarge?.copyWith(color: textColor),
+              ).textTheme.bodyMedium?.copyWith(color: textColor),
             ),
           ],
         ),

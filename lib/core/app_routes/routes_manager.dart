@@ -14,7 +14,7 @@ class RoutesManager {
 }
 
 class RoutesGenerator {
-  static Route<dynamic> generateRoute(RouteSettings route) {
+  static Route<dynamic>? generateRoute(RouteSettings route) {
     switch (route.name) {
       case RoutesManager.splashScreen:
         return MaterialPageRoute(builder: (_) => SplashScreen());
@@ -42,7 +42,7 @@ class RoutesGenerator {
         return MaterialPageRoute(builder: (_) => ContactsScreen());
 
       default:
-        return undefinedRoute();
+        return null;
     }
   }
 

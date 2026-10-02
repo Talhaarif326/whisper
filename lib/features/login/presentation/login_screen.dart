@@ -4,6 +4,7 @@ import 'package:whisper/core/app_routes/routes_manager.dart';
 import 'package:whisper/core/constants/app_size.dart';
 
 import 'package:whisper/core/widgets/widget.dart';
+import 'package:whisper/core/widgets/app_screen_content.dart';
 import 'package:whisper/features/login/data/repository_impl.dart';
 
 import 'package:whisper/features/login/presentation/bloc/login_bloc.dart';
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SnackBar(
                 content: Text(
                   "Login successful",
-                  style: TextStyle(color: colorScheme.onPrimary),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 backgroundColor: colorScheme.primary,
               ),
@@ -54,22 +55,20 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Scaffold(
-          body: Padding(
-            padding: EdgeInsets.all(AppPadding.padding16),
+          body: AppScreenContent(
+            scrollable: true,
+            centerVertically: true,
             child: Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Welcome Back",
-                    style: TextStyle(
-                      fontSize: AppSize.sizeDouble40,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
-                  SizedBox(height: AppSize.sizeDouble100),
+                  SizedBox(height: AppPadding.padding24),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return TextFormField(
@@ -92,19 +91,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              AppSize.sizeDouble20,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(),
-                          hint: Text("Email"),
-                        ),
+                        decoration: InputDecoration(hint: Text("Email")),
                       );
                     },
                   ),
-                  SizedBox(height: AppSize.sizeDouble10),
+                  SizedBox(height: AppPadding.padding16),
                   BlocBuilder<LoginBloc, LoginState>(
                     builder: (context, state) {
                       return TextFormField(
@@ -124,15 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              AppSize.sizeDouble20,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(),
-                          hint: Text("Password"),
-                        ),
+                        decoration: InputDecoration(hint: Text("Password")),
                       );
                     },
                   ),
@@ -160,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: AppSize.sizeDouble80),
+                  SizedBox(height: AppPadding.padding24),
                   BlocBuilder<LoginBloc, LoginState>(
                     buildWhen: (previous, current) => previous != current,
                     builder: (context, state) {
