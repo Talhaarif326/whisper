@@ -33,6 +33,7 @@ class RemoteDataSource {
           .collection("messages")
           .add({
             'message': message.message,
+            "sendername": currentUserName,
             'isMine': FirebaseAuth.instance.currentUser!.uid,
             'recipiantId': message.recipiantId,
             'timestamp': DateTime.now(),
@@ -111,6 +112,8 @@ class RemoteDataSource {
       return response.map(
         (snapshot) => snapshot.docs.map((doc) {
           final data = doc.data();
+          print("Sender Name: ${data["sendername"]}");
+
           final timestamp = data['timestamp'];
 
           final isMine = data['isMine'];
@@ -120,8 +123,10 @@ class RemoteDataSource {
           }
           if (isMine != FirebaseAuth.instance.currentUser!.uid) {
             data['isMine'] = false;
+            data["senderName"] = data["sendername"];
           } else {
             data['isMine'] = true;
+            data['senderName'] = 'you';
           }
 
           return MessageResponseModel.fromJson(data);

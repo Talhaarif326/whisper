@@ -22,6 +22,7 @@ MessageResponseModel _$MessageResponseModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MessageResponseModel {
   String get message => throw _privateConstructorUsedError;
+  String? get senderName => throw _privateConstructorUsedError;
   bool get isMine => throw _privateConstructorUsedError;
   DateTime get timestamp => throw _privateConstructorUsedError;
 
@@ -42,7 +43,12 @@ abstract class $MessageResponseModelCopyWith<$Res> {
     $Res Function(MessageResponseModel) then,
   ) = _$MessageResponseModelCopyWithImpl<$Res, MessageResponseModel>;
   @useResult
-  $Res call({String message, bool isMine, DateTime timestamp});
+  $Res call({
+    String message,
+    String? senderName,
+    bool isMine,
+    DateTime timestamp,
+  });
 }
 
 /// @nodoc
@@ -64,6 +70,7 @@ class _$MessageResponseModelCopyWithImpl<
   @override
   $Res call({
     Object? message = null,
+    Object? senderName = freezed,
     Object? isMine = null,
     Object? timestamp = null,
   }) {
@@ -73,6 +80,10 @@ class _$MessageResponseModelCopyWithImpl<
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
                       as String,
+            senderName: freezed == senderName
+                ? _value.senderName
+                : senderName // ignore: cast_nullable_to_non_nullable
+                      as String?,
             isMine: null == isMine
                 ? _value.isMine
                 : isMine // ignore: cast_nullable_to_non_nullable
@@ -96,7 +107,12 @@ abstract class _$$MessageResponseModelImplCopyWith<$Res>
   ) = __$$MessageResponseModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, bool isMine, DateTime timestamp});
+  $Res call({
+    String message,
+    String? senderName,
+    bool isMine,
+    DateTime timestamp,
+  });
 }
 
 /// @nodoc
@@ -114,6 +130,7 @@ class __$$MessageResponseModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = null,
+    Object? senderName = freezed,
     Object? isMine = null,
     Object? timestamp = null,
   }) {
@@ -123,6 +140,10 @@ class __$$MessageResponseModelImplCopyWithImpl<$Res>
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
                   as String,
+        senderName: freezed == senderName
+            ? _value.senderName
+            : senderName // ignore: cast_nullable_to_non_nullable
+                  as String?,
         isMine: null == isMine
             ? _value.isMine
             : isMine // ignore: cast_nullable_to_non_nullable
@@ -141,6 +162,7 @@ class __$$MessageResponseModelImplCopyWithImpl<$Res>
 class _$MessageResponseModelImpl implements _MessageResponseModel {
   const _$MessageResponseModelImpl({
     required this.message,
+    required this.senderName,
     required this.isMine,
     required this.timestamp,
   });
@@ -151,13 +173,15 @@ class _$MessageResponseModelImpl implements _MessageResponseModel {
   @override
   final String message;
   @override
+  final String? senderName;
+  @override
   final bool isMine;
   @override
   final DateTime timestamp;
 
   @override
   String toString() {
-    return 'MessageResponseModel(message: $message, isMine: $isMine, timestamp: $timestamp)';
+    return 'MessageResponseModel(message: $message, senderName: $senderName, isMine: $isMine, timestamp: $timestamp)';
   }
 
   @override
@@ -166,6 +190,8 @@ class _$MessageResponseModelImpl implements _MessageResponseModel {
         (other.runtimeType == runtimeType &&
             other is _$MessageResponseModelImpl &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.senderName, senderName) ||
+                other.senderName == senderName) &&
             (identical(other.isMine, isMine) || other.isMine == isMine) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp));
@@ -173,7 +199,8 @@ class _$MessageResponseModelImpl implements _MessageResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, message, isMine, timestamp);
+  int get hashCode =>
+      Object.hash(runtimeType, message, senderName, isMine, timestamp);
 
   /// Create a copy of MessageResponseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -196,6 +223,7 @@ class _$MessageResponseModelImpl implements _MessageResponseModel {
 abstract class _MessageResponseModel implements MessageResponseModel {
   const factory _MessageResponseModel({
     required final String message,
+    required final String? senderName,
     required final bool isMine,
     required final DateTime timestamp,
   }) = _$MessageResponseModelImpl;
@@ -205,6 +233,8 @@ abstract class _MessageResponseModel implements MessageResponseModel {
 
   @override
   String get message;
+  @override
+  String? get senderName;
   @override
   bool get isMine;
   @override

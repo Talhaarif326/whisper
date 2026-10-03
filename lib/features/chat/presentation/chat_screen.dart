@@ -157,7 +157,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 _textEditingController.clear();
                               },
                               tooltip: 'Send message',
-                              icon: const Icon(Icons.send_rounded),
+                              icon: const Icon(
+                                Icons.send_rounded,
+                                color: Colors.white,
+                              ),
                             );
                           },
                         ),
@@ -228,13 +231,13 @@ class _ChatBubble extends StatelessWidget {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   message.uid,
-            //   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            //     color: textColor.withValues(alpha: 0.75),
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            // ),
+            Text(
+              message.senderName ?? 'Unknown',
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: textColor.withValues(alpha: 0.75),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             SizedBox(height: AppSize.sizeDouble3),
             Text(
               message.message,

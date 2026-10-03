@@ -4,6 +4,6 @@ part of 'setting_bloc.dart';
 class SettingState with _$SettingState {
   const factory SettingState({
     @Default(false) bool isLoggingOut,
-    @Default(true) bool notificationsEnabled,
+    @Default(false) bool notificationsEnabled,
   }) = _SettingState;
 }

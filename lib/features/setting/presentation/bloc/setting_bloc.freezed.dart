@@ -579,7 +579,7 @@ class __$$SettingStateImplCopyWithImpl<$Res>
 class _$SettingStateImpl implements _SettingState {
   const _$SettingStateImpl({
     this.isLoggingOut = false,
-    this.notificationsEnabled = true,
+    this.notificationsEnabled = false,
   });
 
   @override

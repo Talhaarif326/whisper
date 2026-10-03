@@ -7,6 +7,7 @@ part 'message_response_model.g.dart';
 abstract class MessageResponseModel with _$MessageResponseModel {
   const factory MessageResponseModel({
     required String message,
+    required String? senderName,
     required bool isMine,
     required DateTime timestamp,
   }) = _MessageResponseModel;
