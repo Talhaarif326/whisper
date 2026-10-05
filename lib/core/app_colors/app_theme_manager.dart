@@ -25,12 +25,14 @@ class AppThemeManager {
     ThemeMode.dark,
   ];
 
+  /// Returns the user-facing name of a theme mode.
   static String labelFor(ThemeMode mode) => switch (mode) {
     ThemeMode.system => 'System default',
     ThemeMode.light => 'Light',
     ThemeMode.dark => 'Dark',
   };
 
+  /// Updates the theme mode listened to by the root application widget.
   static void setThemeMode(ThemeMode mode) {
     _themeMode.value = mode;
   }

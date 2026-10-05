@@ -1,34 +1,34 @@
-import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:whisper/features/chat/data/repository/chat_repository_impl.dart';
-import 'package:whisper/features/chat/domain/model/message_response_model.dart';
-import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/chat/domain/chat_domain_barrel.dart';
 
 part 'chat_bloc_event.dart';
 part 'chat_bloc_state.dart';
 part 'chat_bloc_bloc.freezed.dart';
 
 class ChatBlocBloc extends Bloc<ChatBlocEvent, ChatBlocState> {
-  final ChatRepositoryImpl _chatRepositoryImpl;
-  ChatBlocBloc({required this._chatRepositoryImpl}) : super(ChatBlocState()) {
+  /// Coordinates chat UI events with the domain repository.
+  ChatBlocBloc({required this.repository}) : super(ChatBlocState()) {
     on<ChatBlocEvent>((event, emit) async {
       await event.map(
         started: (e) {},
 
+        // Keep the draft field state in sync with user input.
         onMessageChanged: (e) {
           emit(state.copyWith(messageChanged: e.messageChanged));
         },
 
+        // Send the composed message through the repository.
         sendMessage: (e) async {
-          await _chatRepositoryImpl.sendMessage(e.message);
+          await repository.sendMessage(e.message);
         },
 
+        // Subscribe to conversation updates and expose loading or error state.
         getMessages: (e) async {
           emit(state.copyWith(isLoading: true));
 
           await emit
               .forEach<List<MessageResponseModel>>(
-                _chatRepositoryImpl.getMessages(),
+                repository.getMessages(),
                 onData: (messageList) {
                   return state.copyWith(
                     isLoading: false,
@@ -49,4 +49,6 @@ class ChatBlocBloc extends Bloc<ChatBlocEvent, ChatBlocState> {
       );
     });
   }
+
+  final ChatRepository repository;
 }

@@ -1,11 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:whisper/core/widgets/app_screen_content.dart';
-import 'package:whisper/core/app_colors/app_theme.dart';
-import 'package:whisper/barrel.dart';
-import 'package:whisper/features/contacts/data/remote_data_source/contact_remote_data_source.dart';
-import 'package:whisper/features/contacts/data/repository/contact_repository_imp.dart';
-import 'package:whisper/features/contacts/presentation/bloc/contact_bloc.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/contacts/contacts_barrel.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -19,7 +15,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ContactBloc(ContactRepositoryImp(ContactRemoteDataSource()))
+          ContactBloc(ContactRepositoryImpl(ContactRemoteDataSource()))
             ..add(ContactEvent.onFetchedContacts()),
       child: BlocListener<ContactBloc, ContactState>(
         listener: (context, state) {

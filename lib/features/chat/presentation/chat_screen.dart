@@ -1,14 +1,8 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/material.dart';
-import 'package:whisper/core/app_colors/app_theme.dart';
-import 'package:whisper/core/widgets/app_screen_content.dart';
-import 'package:whisper/barrel.dart';
-import 'package:whisper/features/chat/data/remote_data_source/remote_data_source.dart';
-import 'package:whisper/features/chat/data/repository/chat_repository_impl.dart';
-import 'package:whisper/features/chat/domain/model/message_response_model.dart';
-import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
-import 'package:whisper/features/chat/presentation/bloc/chat_bloc_bloc.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/chat/chat_barrel.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({required this.recipianID, required this.name, super.key});
@@ -42,8 +36,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return BlocProvider(
       create: (context) => ChatBlocBloc(
-        chatRepositoryImpl: ChatRepositoryImpl(
-          RemoteDataSource(recipiant: widget.recipianID),
+        repository: ChatRepositoryImpl(
+          FirebaseChatRemoteDataSource(
+            recipientId: widget.recipianID,
+            notificationDataSource: FirebaseChatNotificationDataSource(),
+          ),
         ),
       )..add(const ChatBlocEvent.getMessages()),
       child: BlocListener<ChatBlocBloc, ChatBlocState>(

@@ -9,6 +9,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 class NotificationHelper {
+  /// Requests permission and stores the current user's FCM token when enabled.
   static Future<void> notificationsEnabledOrDisabled(bool enabled) async {
     try {
       if (enabled) {
@@ -43,7 +44,7 @@ class NotificationHelper {
     }
   }
 
-  // init notification
+  /// Initializes local notifications and listens for foreground FCM messages.
   static Future<void> initNotifications() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -78,7 +79,7 @@ class NotificationHelper {
         });
   }
 
-  // showing notification
+  /// Displays a local notification for an incoming chat message.
   static Future<void> showNotification({
     required String senderName,
     required String notificationMessage,

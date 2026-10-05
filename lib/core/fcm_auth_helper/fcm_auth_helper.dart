@@ -4,6 +4,7 @@ import 'package:googleapis_auth/auth_io.dart';
 class FcmAuthHelper {
   static const _scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
 
+  /// Creates a Google OAuth access token for Firebase Cloud Messaging.
   Future<String> getFcmToken() async {
     final jsonString = await rootBundle.loadString(
       'flutter-chat-app-d482d-firebase-adminsdk-fbsvc-04c46fbb6d.json',

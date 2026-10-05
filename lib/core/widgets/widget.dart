@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../barrel.dart';
+import 'package:whisper/core/constants/app_size.dart';
 
 class ContinueButton extends StatelessWidget {
   const ContinueButton({

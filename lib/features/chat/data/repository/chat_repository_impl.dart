@@ -4,16 +4,19 @@ import 'package:whisper/features/chat/domain/model/messege_sending_model.dart';
 import 'package:whisper/features/chat/domain/repository/chat_repository.dart';
 
 class ChatRepositoryImpl extends ChatRepository {
-  final RemoteDataSource _remoteDatasource;
-  ChatRepositoryImpl(this._remoteDatasource);
+  ChatRepositoryImpl(this._remoteDataSource);
 
+  final ChatRemoteDataSource _remoteDataSource;
+
+  /// Returns the live message stream supplied by the remote data source.
   @override
   Stream<List<MessageResponseModel>> getMessages() {
-    return _remoteDatasource.fetchMessages();
+    return _remoteDataSource.fetchMessages();
   }
 
+  /// Forwards a message to the configured remote data source.
   @override
   Future<void> sendMessage(MessageSendingModel message) async {
-    await _remoteDatasource.sendMessage(message);
+    await _remoteDataSource.sendMessage(message);
   }
 }

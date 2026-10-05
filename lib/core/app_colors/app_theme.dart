@@ -14,6 +14,7 @@ class AppTheme {
   static const double focusBorderWidth = 1.5;
   static const double noElevation = 0;
 
+  /// Builds the shared Material theme using the palette for the given brightness.
   static ThemeData fromSeed({Brightness brightness = Brightness.light}) {
     final colors = ColorManager.colorScheme(brightness);
     final rounded = RoundedRectangleBorder(

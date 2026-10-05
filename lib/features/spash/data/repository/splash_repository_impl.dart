@@ -6,6 +6,7 @@ class SplashRepositoryImpl extends SplashRepository {
   final SplashRemoteDataSource _splashRemoteDataSource;
   SplashRepositoryImpl({required this._splashRemoteDataSource});
 
+  /// Gets the current authentication status from the remote data source.
   @override
   Future<User?> checkUserStatus() {
     return _splashRemoteDataSource.isLoggedIn();

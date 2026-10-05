@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class ContactRemoteDataSource {
+  /// Streams user records from Realtime Database as the contact list.
   Stream<List<dynamic>> fetchContacts() {
     try {
       final FirebaseDatabase database = FirebaseDatabase.instance;

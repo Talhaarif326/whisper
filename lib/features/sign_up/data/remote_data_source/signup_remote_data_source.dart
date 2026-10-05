@@ -7,6 +7,7 @@ import 'package:whisper/features/sign_up/domain/model/sign_up_request_model.dart
 import 'package:whisper/features/sign_up/domain/model/sign_up_response_model.dart';
 
 class SignupRemoteDataSource {
+  /// Creates a Firebase account, stores its profile, and returns the result.
   Future<Either<Failure, SignUpResponseModel>> signUp(
     SignUpRequestModel request,
   ) async {

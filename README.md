@@ -2,13 +2,12 @@
 
 # 🌙 Whisper
 
-### A sleek Flutter chat app with Firebase-powered messaging and clean architecture
+### A modern Flutter chat app with Firebase-powered communication and polished UX
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 [![Bloc](https://img.shields.io/badge/State%20Management-BLoC-5C3EE8?style=for-the-badge)](https://bloclibrary.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
-[![Architecture](https://img.shields.io/badge/Architecture-Clean-00C853?style=for-the-badge)]()
 
 <table>
   <tr>
@@ -20,48 +19,57 @@
 
 </div>
 
-> 🚀 Whisper is a modern messaging experience built for smooth onboarding, secure authentication, and direct conversations in a clean, polished Flutter UI.
+> Whisper is a sleek messaging experience designed for secure onboarding, real-time chat, and a clean mobile-first user interface.
 
 ---
 
-## ✨ Overview
+## ✨ App Overview
 
-Whisper is a feature-rich chat application designed to feel lightweight, modern, and easy to extend. The project combines:
+Whisper is a chat application built with Flutter and Firebase, combining elegant UI design with a scalable clean-architecture structure. The app is focused on essential user flows such as onboarding, authentication, contact browsing, direct messaging, and profile management.
 
-- Clean architecture layers for maintainable code
-- Firebase authentication for login and sign up
-- Contact-based messaging flow
-- BLoC state management for predictable UI behavior
-- A refined mobile-first design with rounded surfaces and modern cards
-
-The current user flow is:
-
-**Splash → Onboarding → Sign Up / Login → Contacts → Chat → Settings / Profile**
-
----
-
-## 🌟 App Experience
-
-### Core flow
+### Core user journey
 
 ```mermaid
 flowchart LR
-    A[Splash] --> B[Onboarding]
+    A[Landing / Splash] --> B[Onboarding]
     B --> C[Sign Up / Login]
     C --> D[Contacts]
     D --> E[Chat Screen]
-    E --> F[Settings / Profile]
+    E --> F[Profile / Settings]
 ```
 
-### Included features
+### High-level architecture
 
-- 🔐 User authentication with Firebase
-- 🧩 Swipeable onboarding experience
-- 👤 Sign up, login, and forgot-password flow
-- 📇 Contact list with user selection
-- 💬 Direct messaging interface
-- ⚙️ Profile and settings management
-- 🧠 Feature-first Clean Architecture with BLoC
+```mermaid
+flowchart TD
+    UI[Flutter UI Layer] --> BLoC[BLoC State Management]
+    BLoC --> Repo[Repository Layer]
+    Repo --> DS[Remote Data Sources]
+    DS --> FB[Firebase Auth / Firestore / Realtime DB]
+```
+
+---
+
+## 🎯 Key Features
+
+<table>
+  <tr>
+    <td align="center"><strong>🔐 Auth</strong><br/>Firebase login and signup</td>
+    <td align="center"><strong>🧩 Onboarding</strong><br/>Smooth introduction flow</td>
+    <td align="center"><strong>📇 Contacts</strong><br/>User selection and listing</td>
+  </tr>
+  <tr>
+    <td align="center"><strong>💬 Messaging</strong><br/>Direct chat interface</td>
+    <td align="center"><strong>⚙️ Settings</strong><br/>Profile and preferences</td>
+    <td align="center"><strong>🔔 Notifications</strong><br/>FCM-ready helper integration</td>
+  </tr>
+</table>
+
+- Firebase Authentication for secure sign-up and login
+- Responsive onboarding flow with polished visuals
+- Contact-focused chat experience
+- Clean architecture separation between UI, data, and domain logic
+- Modern mobile-first design with soft color styling and card-based layout
 
 ---
 
@@ -69,25 +77,28 @@ flowchart LR
 
 | Layer | Technology |
 |---|---|
-| UI | Flutter |
+| App Framework | Flutter |
 | Language | Dart |
 | State Management | flutter_bloc |
 | Architecture | Clean Architecture |
-| Backend | Firebase Auth, Realtime Database, and Firestore |
-| Data Flow | Repository and Remote Data Source pattern |
+| Backend | Firebase Auth, Firestore, Realtime Database |
+| API / Messaging | Firebase Cloud Messaging |
+| Data Pattern | Repository + Remote Data Source |
 
 ---
 
-## 🏗️ Project Structure
+## 🧱 Project Structure
 
 ```text
 lib/
 ├── core/
 │   ├── app_colors/
-│   ├── app_routes/
 │   ├── app_images/
+│   ├── app_routes/
 │   ├── constants/
 │   ├── failures/
+│   ├── fcm_auth_helper/
+│   ├── notification/
 │   └── widgets/
 ├── features/
 │   ├── spash/
@@ -105,43 +116,27 @@ lib/
 └── ...
 ```
 
-Each feature keeps its data, domain, and presentation responsibilities organized so the application can grow without coupling UI code to backend implementation details.
+Each feature is organized into separate layers to keep the app easy to extend and maintain.
 
 ---
 
-## 📱 App Screens
+## 📱 Screen Experience
 
 ### Splash and onboarding
-
-A branded splash screen introduces the app, followed by a multi-step onboarding experience with illustrations and navigation controls.
+A branded splash screen introduces the app, followed by a guided onboarding experience with a clean, app-focused layout.
 
 ### Authentication
-
 Users can:
 
-- Create an account with name, email, and password
-- Log in with email and password
-- Request a password reset link
+- create an account
+- log in with email and password
+- recover an account through a forgot-password flow
 
-### Contacts and chat
+### Contacts and messaging
+Authenticated users can browse contacts, open conversations, and send direct messages through a simple chat view.
 
-Authenticated users can browse contacts, select a conversation, view messages, and send new messages from the dedicated chat screen.
-
-### Settings and profile
-
-The settings area displays profile information, provides profile editing access, includes a notification toggle, and supports logout.
-
----
-
-## 🎨 Design Direction
-
-Whisper uses a clean mobile-first visual language:
-
-- rounded containers and cards
-- elevated chat bubbles and surfaces
-- clear contrast and readable typography
-- soft blue-focused color palette
-- consistent spacing and reusable components
+### Profile and settings
+The settings area supports profile visibility, personalization, theme preference, and log out actions.
 
 ---
 
@@ -150,61 +145,60 @@ Whisper uses a clean mobile-first visual language:
 ### Prerequisites
 
 - [Flutter SDK](https://docs.flutter.dev/get-started/install)
-- Dart SDK, bundled with Flutter
-- Android Studio, VS Code, or Xcode
-- A Firebase project configured for the application
+- [Firebase project](https://firebase.google.com/)
+- Android Studio / VS Code / Xcode for running the app
 
-### Install and run
+### Install dependencies
 
 ```bash
-# Clone the repository
 git clone https://github.com/Talhaarif326/whisper.git
 cd whisper
-
-# Install dependencies
 flutter pub get
-
-# Run the application
-flutter run
 ```
 
 ### Firebase setup
 
-1. Create a Firebase project.
-2. Add the Android and/or iOS application.
-3. Configure Firebase for the selected platform.
-4. Enable Firebase Authentication and the required database services.
-5. Run the application on a connected device or emulator.
+1. Create a Firebase project in the Firebase console.
+2. Add the Android and/or iOS app to that project.
+3. Download and add the required config files:
+   - `google-services.json` for Android
+   - `GoogleService-Info.plist` for iOS
+4. Configure Firebase for Flutter:
+
+```bash
+flutterfire configure
+```
+
+5. Enable the required Firebase services:
+   - Firebase Authentication
+   - Firestore or Realtime Database
+   - Firebase Cloud Messaging (if notifications are used)
+
+### Run the app
+
+```bash
+flutter run
+```
 
 ---
 
-## 🔍 Future Ideas
+## 🔍 Notes
 
-The architecture leaves room for additional features such as:
-
-- real-time typing indicators
-- user presence status
-- media and file sharing
-- improved message persistence
-- theme switching
-- push notifications
+- This project is built as a mobile-first chat application with a clean architecture foundation.
+- `firebase_options.dart` is generated by FlutterFire and should reflect your project configuration.
+- Notification features require proper Firebase Cloud Messaging setup for the target platform.
 
 ---
 
 ## 👤 Author
 
-<div align="center">
-
-**Talha Arif**  
-Flutter Developer
-
-</div>
+**Talha Arif**
 
 ---
 
 ## 📄 License
 
-This project is currently unlicensed. All rights reserved by the author.
+This project is currently unlicensed.
 
 <div align="center">
 

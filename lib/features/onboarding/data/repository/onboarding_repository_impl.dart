@@ -1,9 +1,11 @@
-import 'package:whisper/barrel.dart';
+import 'package:whisper/features/onboarding/domain/model/onbarding_model.dart';
+import 'package:whisper/features/onboarding/domain/repository/onboarding_repository.dart';
 import 'package:whisper/features/onboarding/presentation/constant/onboarding_constant.dart';
 
-class RepositoryImpl extends Repository {
+class OnboardingRepositoryImpl implements OnboardingRepository {
+  /// Provides the configured pages displayed during onboarding.
   @override
-  List<OnboardingModel> getOnBoardingScreenData() {
+  List<OnboardingModel> getOnboardingScreenData() {
     return [
       OnboardingModel(
         image: OnboardingImages.onboardinglogo1,

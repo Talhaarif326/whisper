@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:whisper/barrel.dart';
-import 'package:whisper/features/spash/data/remote_data_soruce/remote_data_source.dart';
-import 'package:whisper/features/spash/data/repository/splash_repository_impl.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/spash/splash_barrel.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SplashBloc(
-        splashRepository: SplashRepositoryImpl(
+        repository: SplashRepositoryImpl(
           splashRemoteDataSource: SplashRemoteDataSource(),
         ),
       )..add(IsLoggedIn()),

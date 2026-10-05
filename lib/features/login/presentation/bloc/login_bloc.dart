@@ -1,32 +1,32 @@
-import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:whisper/features/login/data/repository_impl.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/login/domain/login_domain_barrel.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 part 'login_bloc.freezed.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final RepositoryImpl loginRepository;
-  LoginBloc({required this.loginRepository}) : super(LoginState()) {
+  final LoginRepository repository;
+
+  /// Tracks login form input and submits credentials through the repository.
+  LoginBloc({required this.repository}) : super(LoginState()) {
     on<LoginEvent>((event, emit) async {
       await event.map(
-        started: (e) {
-          // Handle the started event
-        },
+        started: (e) {},
+        // Store edited email and password values in form state.
         onEmailChanged: (event) {
           emit(state.copyWith(email: event.email));
         },
+        // Store the edited password value in form state.
         onPasswordChanged: (event) {
           emit(state.copyWith(password: event.password));
         },
+        // Authenticate the current form values and publish the result.
         onLoginPressed: (event) async {
-          // Handle the login pressed event
           final email = state.email;
           final password = state.password;
 
-          // Call the login repository to perform the login operation
-          final result = await loginRepository.login(email, password);
+          final result = await repository.login(email, password);
 
           result.fold(
             (failure) {

@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:whisper/core/notification/notification_helper.dart';
 import 'firebase_options.dart';
 
+/// Initializes Flutter, Firebase, and notifications before launching the app.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

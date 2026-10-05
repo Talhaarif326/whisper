@@ -6,6 +6,7 @@ import 'package:whisper/features/sign_up/domain/model/sign_up_response_model.dar
 import 'package:whisper/features/sign_up/domain/repository/sign_up_repository.dart';
 
 class SignUpRepositoryImpl extends SignUpRepository {
+  /// Delegates account creation to the Firebase remote data source.
   @override
   Future<Either<Failure, SignUpResponseModel>> signUp(
     SignUpRequestModel request,

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:whisper/barrel.dart';
-import 'package:whisper/core/widgets/widget.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/onboarding/onboarding_barrel.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -15,7 +15,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          OnboardingBloc(RepositoryImpl())..add(GetOnboardingData()),
+          OnboardingBloc(OnboardingRepositoryImpl())..add(GetOnboardingData()),
       child: Scaffold(
         body: SafeArea(
           child: BlocBuilder<OnboardingBloc, OnboardingState>(

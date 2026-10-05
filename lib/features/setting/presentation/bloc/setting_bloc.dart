@@ -1,25 +1,26 @@
-import 'package:bloc/bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:whisper/features/setting/data/repository/setting_repository_impl.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/setting/domain/setting_domain_barrel.dart';
 
 part 'setting_event.dart';
 part 'setting_state.dart';
 part 'setting_bloc.freezed.dart';
 
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
-  final SettingRepositoryImpl _settingRepositoryImpl;
-  SettingBloc(this._settingRepositoryImpl) : super(SettingState()) {
+  final SettingRepository repository;
+
+  /// Applies settings actions and reflects their outcomes in UI state.
+  SettingBloc(this.repository) : super(SettingState()) {
     on<SettingEvent>((event, emit) async {
       await event.map(
         started: (e) {},
+        // Complete sign-out and mark the state for navigation feedback.
         logOut: (e) async {
-          await _settingRepositoryImpl.logOut();
+          await repository.logOut();
           emit(state.copyWith(isLoggingOut: true));
         },
+        // Persist the notification choice before updating visible state.
         enableOrDisableNotifications: (e) async {
-          await _settingRepositoryImpl.notificationsEnabledOrDisabled(
-            e.enabled,
-          );
+          await repository.notificationsEnabledOrDisabled(e.enabled);
 
           emit(state.copyWith(notificationsEnabled: e.enabled));
         },

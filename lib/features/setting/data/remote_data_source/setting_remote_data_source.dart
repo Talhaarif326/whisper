@@ -4,6 +4,7 @@ import 'package:whisper/core/notification/notification_helper.dart';
 class SettingRemoteDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  /// Signs out the authenticated Firebase user.
   Future<void> signOut() async {
     try {
       await _auth.signOut();
@@ -16,6 +17,7 @@ class SettingRemoteDataSource {
     }
   }
 
+  /// Applies the requested notification preference for the current user.
   Future<void> notificationsEnabledOrDisabled(bool enabled) async {
     await NotificationHelper.notificationsEnabledOrDisabled(enabled);
   }

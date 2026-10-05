@@ -1,5 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:whisper/barrel.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/chat/presentation/chat_screen.dart';
+import 'package:whisper/features/contacts/presentation/contacts_screen.dart';
+import 'package:whisper/features/forgot/presentation/forgot_screen.dart';
+import 'package:whisper/features/login/presentation/login_screen.dart';
+import 'package:whisper/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:whisper/features/presentation/profile_screen.dart';
+import 'package:whisper/features/setting/presentation/setting_screen.dart';
+import 'package:whisper/features/sign_up/presentation/sign_up_screen.dart';
+import 'package:whisper/features/spash/presentation/splash_screen.dart';
 
 class RoutesManager {
   static const String splashScreen = "/splashScreen";
@@ -14,6 +22,7 @@ class RoutesManager {
 }
 
 class RoutesGenerator {
+  /// Builds the route corresponding to a named route and its arguments.
   static Route<dynamic>? generateRoute(RouteSettings route) {
     switch (route.name) {
       case RoutesManager.splashScreen:
@@ -46,6 +55,7 @@ class RoutesGenerator {
     }
   }
 
+  /// Builds the fallback route used when no route name is recognized.
   static Route<dynamic> undefinedRoute() {
     return MaterialPageRoute(builder: (contex) => SizedBox.shrink());
   }

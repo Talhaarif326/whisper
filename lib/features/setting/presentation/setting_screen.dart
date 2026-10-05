@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:whisper/core/widgets/app_screen_content.dart';
-import 'package:whisper/core/app_colors/app_theme.dart';
-import 'package:whisper/core/app_colors/app_theme_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:whisper/barrel.dart';
-import 'package:whisper/features/setting/data/remote_data_source/setting_remote_data_source.dart';
-import 'package:whisper/features/setting/data/repository/setting_repository_impl.dart';
-import 'package:whisper/features/setting/presentation/bloc/setting_bloc.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/setting/setting_barrel.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});

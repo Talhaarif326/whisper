@@ -1,13 +1,6 @@
-import 'package:flutter/material.dart';
-
-import 'package:whisper/core/widgets/widget.dart';
-import 'package:whisper/core/widgets/app_screen_content.dart';
-import 'package:whisper/features/sign_up/data/repository/sign_up_repository_impl.dart';
-import 'package:whisper/features/sign_up/domain/model/sign_up_request_model.dart';
-
-import 'package:whisper/features/sign_up/presentation/bloc/sign_up_bloc.dart';
-
-import '../../../barrel.dart';
+import 'package:whisper/core/app_routes/routes_manager.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/sign_up/sign_up_barrel.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

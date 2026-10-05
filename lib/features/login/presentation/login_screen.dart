@@ -1,13 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whisper/core/app_routes/routes_manager.dart';
-import 'package:whisper/core/constants/app_size.dart';
-
-import 'package:whisper/core/widgets/widget.dart';
-import 'package:whisper/core/widgets/app_screen_content.dart';
-import 'package:whisper/features/login/data/repository_impl.dart';
-
-import 'package:whisper/features/login/presentation/bloc/login_bloc.dart';
+import 'package:whisper/core/presentation/presentation_barrel.dart';
+import 'package:whisper/features/login/login_barrel.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,7 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(loginRepository: RepositoryImpl()),
+      create: (context) => LoginBloc(repository: LoginRepositoryImpl()),
       child: BlocListener<LoginBloc, LoginState>(
         listenWhen: (previous, current) =>
             previous.errorMessage != current.errorMessage,
