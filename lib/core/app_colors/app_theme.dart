@@ -7,11 +7,14 @@ class AppTheme {
   static const double screenInset = AppPadding.padding24;
   static const double cornerRadius = AppSize.sizeDouble16;
   static const double avatarRadius = AppSize.sizeDouble48;
+  static const double contactAvatarRadius = AppSize.sizeDouble24;
   static const double avatarIconSize = AppSize.sizeDouble48;
   static const double buttonHeight = AppSize.sizeDouble52;
   static const double messageWidthFactor = 0.78;
   static const double messageTailRadius = AppSize.sizeDouble4;
   static const double focusBorderWidth = 1.5;
+  static const double brandLetterSpacing = 1.5;
+  static const double subduedTextOpacity = 0.75;
   static const double noElevation = 0;
 
   /// Builds the shared Material theme using the palette for the given brightness.

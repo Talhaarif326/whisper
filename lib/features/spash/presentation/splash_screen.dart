@@ -43,7 +43,10 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               height: double.infinity,
               width: double.infinity,
-              child: Image.asset("lib/core/app_images/ChatAppLogo2.png"),
+              child: Image.asset(
+                "lib/core/app_images/ChatAppLogo2.png",
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
           ),
         ),
