@@ -2,6 +2,9 @@ abstract class SettingRepository {
   /// Ends the current user's authenticated session.
   Future<void> logOut();
 
-  /// Enables or disables notifications for the current user.
-  Future<void> notificationsEnabledOrDisabled(bool enabled);
+  /// Returns whether the current user's notification token is stored.
+  Future<bool> notificationsEnabled();
+
+  /// Updates the current user's notification preference and returns its result.
+  Future<bool> notificationsEnabledOrDisabled(bool enabled);
 }

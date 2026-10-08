@@ -478,6 +478,8 @@ abstract class _EnableOrDisableNotifications implements SettingEvent {
 mixin _$SettingState {
   bool get isLoggingOut => throw _privateConstructorUsedError;
   bool get notificationsEnabled => throw _privateConstructorUsedError;
+  bool get isLoadingNotifications => throw _privateConstructorUsedError;
+  String get notificationError => throw _privateConstructorUsedError;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -493,7 +495,12 @@ abstract class $SettingStateCopyWith<$Res> {
     $Res Function(SettingState) then,
   ) = _$SettingStateCopyWithImpl<$Res, SettingState>;
   @useResult
-  $Res call({bool isLoggingOut, bool notificationsEnabled});
+  $Res call({
+    bool isLoggingOut,
+    bool notificationsEnabled,
+    bool isLoadingNotifications,
+    String notificationError,
+  });
 }
 
 /// @nodoc
@@ -513,6 +520,8 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
   $Res call({
     Object? isLoggingOut = null,
     Object? notificationsEnabled = null,
+    Object? isLoadingNotifications = null,
+    Object? notificationError = null,
   }) {
     return _then(
       _value.copyWith(
@@ -524,6 +533,14 @@ class _$SettingStateCopyWithImpl<$Res, $Val extends SettingState>
                 ? _value.notificationsEnabled
                 : notificationsEnabled // ignore: cast_nullable_to_non_nullable
                       as bool,
+            isLoadingNotifications: null == isLoadingNotifications
+                ? _value.isLoadingNotifications
+                : isLoadingNotifications // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            notificationError: null == notificationError
+                ? _value.notificationError
+                : notificationError // ignore: cast_nullable_to_non_nullable
+                      as String,
           )
           as $Val,
     );
@@ -539,7 +556,12 @@ abstract class _$$SettingStateImplCopyWith<$Res>
   ) = __$$SettingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoggingOut, bool notificationsEnabled});
+  $Res call({
+    bool isLoggingOut,
+    bool notificationsEnabled,
+    bool isLoadingNotifications,
+    String notificationError,
+  });
 }
 
 /// @nodoc
@@ -558,6 +580,8 @@ class __$$SettingStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoggingOut = null,
     Object? notificationsEnabled = null,
+    Object? isLoadingNotifications = null,
+    Object? notificationError = null,
   }) {
     return _then(
       _$SettingStateImpl(
@@ -569,6 +593,14 @@ class __$$SettingStateImplCopyWithImpl<$Res>
             ? _value.notificationsEnabled
             : notificationsEnabled // ignore: cast_nullable_to_non_nullable
                   as bool,
+        isLoadingNotifications: null == isLoadingNotifications
+            ? _value.isLoadingNotifications
+            : isLoadingNotifications // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        notificationError: null == notificationError
+            ? _value.notificationError
+            : notificationError // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
@@ -580,6 +612,8 @@ class _$SettingStateImpl implements _SettingState {
   const _$SettingStateImpl({
     this.isLoggingOut = false,
     this.notificationsEnabled = false,
+    this.isLoadingNotifications = true,
+    this.notificationError = '',
   });
 
   @override
@@ -588,10 +622,16 @@ class _$SettingStateImpl implements _SettingState {
   @override
   @JsonKey()
   final bool notificationsEnabled;
+  @override
+  @JsonKey()
+  final bool isLoadingNotifications;
+  @override
+  @JsonKey()
+  final String notificationError;
 
   @override
   String toString() {
-    return 'SettingState(isLoggingOut: $isLoggingOut, notificationsEnabled: $notificationsEnabled)';
+    return 'SettingState(isLoggingOut: $isLoggingOut, notificationsEnabled: $notificationsEnabled, isLoadingNotifications: $isLoadingNotifications, notificationError: $notificationError)';
   }
 
   @override
@@ -602,12 +642,21 @@ class _$SettingStateImpl implements _SettingState {
             (identical(other.isLoggingOut, isLoggingOut) ||
                 other.isLoggingOut == isLoggingOut) &&
             (identical(other.notificationsEnabled, notificationsEnabled) ||
-                other.notificationsEnabled == notificationsEnabled));
+                other.notificationsEnabled == notificationsEnabled) &&
+            (identical(other.isLoadingNotifications, isLoadingNotifications) ||
+                other.isLoadingNotifications == isLoadingNotifications) &&
+            (identical(other.notificationError, notificationError) ||
+                other.notificationError == notificationError));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isLoggingOut, notificationsEnabled);
+  int get hashCode => Object.hash(
+    runtimeType,
+    isLoggingOut,
+    notificationsEnabled,
+    isLoadingNotifications,
+    notificationError,
+  );
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.
@@ -622,12 +671,18 @@ abstract class _SettingState implements SettingState {
   const factory _SettingState({
     final bool isLoggingOut,
     final bool notificationsEnabled,
+    final bool isLoadingNotifications,
+    final String notificationError,
   }) = _$SettingStateImpl;
 
   @override
   bool get isLoggingOut;
   @override
   bool get notificationsEnabled;
+  @override
+  bool get isLoadingNotifications;
+  @override
+  String get notificationError;
 
   /// Create a copy of SettingState
   /// with the given fields replaced by the non-null parameter values.

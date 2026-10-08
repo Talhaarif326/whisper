@@ -18,17 +18,26 @@ class _SettingScreenState extends State<SettingScreen> {
 
     return BlocProvider(
       create: (context) =>
-          SettingBloc(SettingRepositoryImpl(SettingRemoteDataSource())),
+          SettingBloc(SettingRepositoryImpl(SettingRemoteDataSource()))
+            ..add(const SettingEvent.started()),
       child: BlocListener<SettingBloc, SettingState>(
-        listenWhen: (previous, current) => current.isLoggingOut,
+        listenWhen: (previous, current) =>
+            current.isLoggingOut ||
+            previous.notificationError != current.notificationError,
         listener: (context, state) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Successfully logged out')),
-          );
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            RoutesManager.loginScreen,
-            (route) => false,
-          );
+          if (state.isLoggingOut) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Successfully logged out')),
+            );
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              RoutesManager.loginScreen,
+              (route) => false,
+            );
+          } else if (state.notificationError.isNotEmpty) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.notificationError)));
+          }
         },
         child: Scaffold(
           appBar: AppBar(title: const Text('Settings')),
@@ -101,13 +110,15 @@ class _SettingScreenState extends State<SettingScreen> {
                         title: const Text('Notifications'),
                         secondary: const Icon(Icons.notifications_outlined),
                         value: state.notificationsEnabled,
-                        onChanged: (value) {
-                          context.read<SettingBloc>().add(
-                            SettingEvent.enableOrDisableNotifications(
-                              enabled: value,
-                            ),
-                          );
-                        },
+                        onChanged: state.isLoadingNotifications
+                            ? null
+                            : (value) {
+                                context.read<SettingBloc>().add(
+                                  SettingEvent.enableOrDisableNotifications(
+                                    enabled: value,
+                                  ),
+                                );
+                              },
                       ),
                     );
                   },

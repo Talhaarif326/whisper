@@ -12,7 +12,24 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   SettingBloc(this.repository) : super(SettingState()) {
     on<SettingEvent>((event, emit) async {
       await event.map(
-        started: (e) {},
+        started: (e) async {
+          try {
+            final enabled = await repository.notificationsEnabled();
+            emit(
+              state.copyWith(
+                notificationsEnabled: enabled,
+                isLoadingNotifications: false,
+              ),
+            );
+          } catch (error) {
+            emit(
+              state.copyWith(
+                isLoadingNotifications: false,
+                notificationError: error.toString(),
+              ),
+            );
+          }
+        },
         // Complete sign-out and mark the state for navigation feedback.
         logOut: (e) async {
           await repository.logOut();
@@ -20,9 +37,30 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         },
         // Persist the notification choice before updating visible state.
         enableOrDisableNotifications: (e) async {
-          await repository.notificationsEnabledOrDisabled(e.enabled);
-
-          emit(state.copyWith(notificationsEnabled: e.enabled));
+          emit(
+            state.copyWith(isLoadingNotifications: true, notificationError: ''),
+          );
+          try {
+            final enabled = await repository.notificationsEnabledOrDisabled(
+              e.enabled,
+            );
+            emit(
+              state.copyWith(
+                notificationsEnabled: enabled,
+                isLoadingNotifications: false,
+                notificationError: e.enabled && !enabled
+                    ? 'Notification permission was not granted.'
+                    : '',
+              ),
+            );
+          } catch (error) {
+            emit(
+              state.copyWith(
+                isLoadingNotifications: false,
+                notificationError: error.toString(),
+              ),
+            );
+          }
         },
       );
     });

@@ -12,9 +12,15 @@ class SettingRepositoryImpl extends SettingRepository {
     await _remoteDataSource.signOut();
   }
 
+  /// Reads the persisted notification preference from the remote data source.
+  @override
+  Future<bool> notificationsEnabled() async {
+    return _remoteDataSource.notificationsEnabled();
+  }
+
   /// Forwards the notification preference to the remote data source.
   @override
-  Future<void> notificationsEnabledOrDisabled(bool enabled) async {
-    await _remoteDataSource.notificationsEnabledOrDisabled(enabled);
+  Future<bool> notificationsEnabledOrDisabled(bool enabled) async {
+    return _remoteDataSource.notificationsEnabledOrDisabled(enabled);
   }
 }
